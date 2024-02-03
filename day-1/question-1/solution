@@ -1,0 +1,28 @@
+"Detecting Duplicates: Utilizing Sets for Efficient Solution"
+
+Leetcode link: https://leetcode.com/problems/contains-duplicate/solutions/4671640/detecting-duplicates-utilizing-sets-for-efficient-solution/
+
+# Intuition
+The intuition behind this solution is to leverage the properties of sets. A set in Python only allows unique elements, so by converting the list `nums` into a set, we can check if the lengths of the original list and the set are different. If they are different, it implies that there are duplicate elements in the original list.
+
+# Approach
+1. Convert the list `nums` into a set using `set(nums)`.
+2. Check if the length of the original list `nums` is different from the length of the set obtained in step 1.
+3. If the lengths are different, it means there are duplicate elements, and the function returns `True`. Otherwise, it returns `False`.
+
+# Complexity
+- Time complexity: O(n)
+  - Converting the list to a set takes O(n) time, where n is the number of elements in the list.
+  - Checking the length of the list and the set and comparing them is also O(1) on average.
+
+- Space complexity: O(n)
+  - The space complexity is determined by the space required for the set, which can be up to O(n) in the worst case if all elements in the list are unique.
+
+# Code
+```
+class Solution:
+    def containsDuplicate(self, nums: List[int]) -> bool:
+        return len(nums) != len(set(nums))
+    #O(N)
+        
+```

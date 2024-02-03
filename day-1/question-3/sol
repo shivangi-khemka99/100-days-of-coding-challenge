@@ -1,0 +1,24 @@
+"Efficient List Concatenation using Python's Multiplication Operator"
+
+Leetcode solution link: https://leetcode.com/problems/concatenation-of-array/solutions/4671933/efficient-list-concatenation-using-python-s-multiplication-operator/
+# Intuition
+The intuition behind this solution is to achieve the concatenation of a list with itself. This operation is commonly used to create a list containing the elements of the original list repeated.
+
+# Approach
+1. Utilize the `*` operator to multiply the list `nums` by 2.
+2. The result is a new list that contains all elements of the original list repeated twice, effectively achieving the concatenation.
+
+# Complexity
+- Time complexity: O(N)
+  - The `*` operator creates a new list by repeating the elements of the original list. This operation has a linear time complexity with respect to the length of the input list `nums`.
+
+- Space complexity: O(N)
+  - The space complexity is also linear as the new list has a length of 2 times the length of the input list `nums`.
+
+# Code
+```
+class Solution:
+    def getConcatenation(self, nums: List[int]) -> List[int]:
+        return nums * 2
+        #O(N)
+```
