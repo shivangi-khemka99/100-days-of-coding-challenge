@@ -1,0 +1,25 @@
+"In-Place Replacement of Array Elements with Next Greatest"
+
+Leetcode solution link: https://leetcode.com/problems/replace-elements-with-greatest-element-on-right-side/solutions/4676968/in-place-replacement-of-array-elements-with-next-greatest/
+
+#Intuition
+The intuition behind the solution is to iterate through the array from right to left, keeping track of the greatest element encountered so far. Replace each element with the greatest element on its right side.
+
+#Approach
+The code iterates through the array in reverse order and updates each element with the greatest element on its right side. The variable greatest keeps track of the maximum value encountered so far.
+
+#Complexity
+Time complexity: O(N), where N is the length of the array. The algorithm performs a single pass through the array.
+
+Space complexity: O(1), as the solution modifies the input array in place without using additional space.
+
+#Code
+class Solution:
+    def replaceElements(self, arr: List[int]) -> List[int]:
+        greatest = -1
+        for i in range(len(arr)-1, -1, -1):
+            temp = arr[i]
+            arr[i] = greatest
+            greatest = max(greatest, temp)
+        return arr
+    #O(N)

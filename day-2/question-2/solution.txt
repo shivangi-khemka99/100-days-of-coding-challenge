@@ -1,0 +1,29 @@
+"Efficient Subsequence Verification Using Two-Pointer Approach"
+
+Leetcode solution link: https://leetcode.com/problems/is-subsequence/solutions/4677039/efficient-subsequence-verification-using-two-pointer-approach/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem involves checking whether one string (s) is a subsequence of another string (t). The intuition here is to iterate through both strings simultaneously and check if the characters of s appear in the same order in t.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+The approach is to use two pointers, i for string s and j for string t. Iterate through both strings, and if the characters match, increment the pointer for s. Regardless, increment the pointer for t. If i reaches the end of s, it means all characters in s have been found in order in t, and the function returns True; otherwise, it returns False.
+
+# Complexity
+Time complexity: O(N), where N is the length of the longer string between s and t. The algorithm performs a single pass through both strings.
+
+Space complexity: O(1), as the solution uses only two pointers and doesn't require additional space.
+
+# Code
+```
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        i,j = 0,0
+        while (i<len(s) and j<len(t)):
+            if (s[i] == t[j]):
+                i +=1
+            j+=1
+        return i==len(s)
+    #O(N)
+```
