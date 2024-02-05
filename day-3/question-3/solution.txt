@@ -1,0 +1,29 @@
+"Efficient Pascal's Triangle Generation with Dynamic Programming"
+
+Leetcode solution link: https://leetcode.com/problems/pascals-triangle/solutions/4682276/efficient-pascal-s-triangle-generation-with-dynamic-programming/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem involves generating Pascal's Triangle up to a given number of rows. Pascal's Triangle is a mathematical construct where each number is the sum of the two numbers directly above it in the previous row. The intuition is to iteratively build each row based on the values of the previous row.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+The approach is to initialize the triangle with the first row [1]. Then, for each subsequent row, calculate the values based on the elements of the previous row. The elements at the ends of each row are always 1, and the elements in the middle of each row are the sum of the two elements directly above them in the previous row.
+
+# Complexity
+Time complexity: O(N^2) - The outer loop runs numRows times, and for each iteration, we perform operations proportional to the row size.
+
+Space complexity: O(N^2)- The space used is proportional to the number of elements in Pascal's Triangle.
+# Code
+```
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        if numRows == 0:
+            return []
+        triangle = [[1]]
+        for i in range(1, numRows):
+            row = [1] + [triangle[i-1][j-1] + triangle[i-1][j] for j in range(1, i)] + [1]
+            triangle.append(row)
+        return triangle
+        #O(N^2)
+```

@@ -1,0 +1,29 @@
+"Optimized Two-Sum Solution with Dictionary Tracking"
+
+Leetcode solution link: https://leetcode.com/problems/two-sum/solutions/4681968/optimized-two-sum-solution-with-dictionary-tracking/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The intuition for this problem is to efficiently find two numbers in the given list such that their sum equals the target value.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+The approach is to use a dictionary (num_index_map) to keep track of the numbers encountered so far and their corresponding indices. While iterating through the list, for each number, calculate its complement (the difference between the target and the current number). If the complement is already in the dictionary, return the indices of the two numbers that add up to the target. If not, store the current number and its index in the dictionary for future reference.
+
+# Complexity
+Time complexity: O(N) - The algorithm iterates through the list once.
+
+Space complexity: O(N) - The space used by the dictionary to store numbers and their indices.
+
+# Code
+```
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        num_index_map = {}
+        for i, num in enumerate(nums):
+            complement = target - num
+            if complement in num_index_map:
+                return [num_index_map[complement], i]
+            num_index_map[num] = i
+        #O(N)
+```
