@@ -1,0 +1,37 @@
+"Counting Unique Email Addresses with Normalization"
+
+Leetcode solution link: https://leetcode.com/problems/unique-email-addresses/solutions/4687999/counting-unique-email-addresses-with-normalization/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires counting the number of unique email addresses after normalization. Normalization involves ignoring any content after the '+' character in the local part and removing any '.' characters from the local part. The approach involves iterating through each email, splitting it into local and domain parts, normalizing the local part, and adding the normalized email to a set to keep track of unique email addresses.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize an empty set unique_emails to store unique email addresses.
+2. terate through each email in the input list.
+3. Split the email into local and domain parts using the '@' character as a delimiter.
+4. Split the local part by '+' and take the first part to remove any content after '+'.
+5. Replace any '.' characters in the local part with an empty string.
+6. Combine the normalized local part and domain part with '@' and add it to the set unique_emails.
+7. Finally, return the length of the set unique_emails, which represents the number of unique email addresses.
+
+# Complexity
+Time complexity:
+The algorithm iterates through each email once, performing constant-time operations on each email. Thus, the overall time complexity is O(n), where n is the number of emails in the input list.
+
+Space complexity:
+The algorithm utilizes a set to store unique email addresses, which can grow to contain all unique emails in the worst case. Therefore, the space complexity is O(n), where n is the number of unique emails in the input list.
+
+# Code
+```
+class Solution:
+    def numUniqueEmails(self, emails: List[str]) -> int:
+        unique_emails = set()
+        for email in emails:
+            local, domain = email.split('@')
+            local = local.split('+')[0].replace('.', '')
+            unique_emails.add(local + '@' + domain)
+        return len(unique_emails)
+    #O(N)
+```

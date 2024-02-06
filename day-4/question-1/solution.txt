@@ -1,0 +1,43 @@
+"Two-Pointer Approach for Removing Elements in a List"
+
+Leetcode solution link: https://leetcode.com/problems/remove-element/solutions/4687854/two-pointer-approach-for-removing-elements-in-a-list/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem asks us to remove all instances of a particular value from a given list while maintaining the relative order of the remaining elements. One intuitive approach is to use two pointers, one starting from the beginning of the list and the other starting from the end. We can iterate through the list, swapping elements as needed to move all instances of the target value to the end of the list. Finally, we return the index where the first occurrence of the target value appears from the end.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Check if the target value val is not in the list. If not, return the length of the list, as there are no elements to remove.
+2. Initialize two pointers x and y at the start and end of the list respectively.
+3. Iterate through the list while x is less than y.
+4. If nums[x] is equal to val and nums[y] is not equal to val, swap the elements at positions x and y to move the target value to the end of the list.
+5. If nums[x] is not equal to val, increment x.
+6. If nums[y] is equal to val, decrement y.
+7. Return the index y which represents the length of the list without the target value.
+
+# Complexity
+Time complexity:
+In the worst case, both pointers traverse the entire list once, resulting in a time complexity of O(N), where N is the number of elements in the list.
+
+Space complexity:
+The algorithm uses a constant amount of extra space for the pointers and temporary variables, resulting in a space complexity of O(1).
+
+# Code
+```
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        if (val not in nums):
+            return len(nums)
+        x,y=0,len(nums)-1
+        while (x<y):
+            if nums[x] == val and nums[y] != val:
+                nums[x],nums[y] = nums[y],nums[x]
+                x+=1
+            elif nums[x] != val:
+                x+=1
+            elif nums[y] == val:
+                y-=1
+        return y
+        #O(logN)
+```
