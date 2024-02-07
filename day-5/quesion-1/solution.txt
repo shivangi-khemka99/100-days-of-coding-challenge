@@ -1,0 +1,36 @@
+"Optimized Flower Planting Algorithm"
+
+Leetcode solution link: https://leetcode.com/problems/can-place-flowers/solutions/4693291/optimized-flower-planting-algorithm/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To solve this problem, we can iterate through the flowerbed array and check each position to see if it's suitable for planting a flower. If a position satisfies the conditions for planting, we decrement the number of flowers to be planted (n). We continue this process until either all flowers have been planted or we reach the end of the flowerbed.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We iterate through the flowerbed array and check each position. For each position, we verify if it meets the conditions for planting a flower:
+
+The current position is empty (flowerbed[i] == 0).
+The previous and next positions are either out of bounds (i == 0 or i == len(flowerbed) - 1) or empty (flowerbed[i - 1] == 0 and flowerbed[i + 1] == 0).
+If these conditions are met, we plant a flower at the current position and decrement n. We continue this process until we have planted all flowers or reached the end of the flowerbed.
+
+Finally, we return whether all flowers have been planted (n == 0).
+
+# Complexity
+Time complexity: O(n), where n is the length of the flowerbed array. We iterate through the array once.
+
+Space complexity: O(1), as we only use a constant amount of extra space for variables.
+
+# Code
+```
+class Solution:
+    def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
+        i = 0
+        while i < len(flowerbed) and n > 0:
+            if flowerbed[i] == 0 and (i == 0 or flowerbed[i - 1] == 0) and (i == len(flowerbed) - 1 or flowerbed[i + 1] == 0):
+                flowerbed[i] = 1
+                n -= 1
+            i += 1
+        return n == 0
+
+```

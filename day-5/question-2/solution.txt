@@ -1,0 +1,36 @@
+"Boyer-Moore Voting Algorithm for Finding Majority Element"
+
+Leetcode solution link: https://leetcode.com/problems/majority-element/solutions/4693537/boyer-moore-voting-algorithm-for-finding-majority-element/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The Boyer-Moore Voting Algorithm provides an efficient way to find the majority element in a single pass through the array. This algorithm is based on the observation that if you cancel out each occurrence of a majority element with occurrences of any other element, the majority element will still remain after all cancellations.
+
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We initialize two variables, candidate and count, where candidate represents the current majority element candidate, and count represents its count. We then iterate through the array:
+
+If the count is zero, we set the current element as the new candidate.
+If the current element is equal to the candidate, we increment the count.
+If the current element is different from the candidate, we decrement the count.
+At the end of the iteration, the candidate will represent the majority element.
+
+# Complexity
+Time complexity: O(n), where n is the length of the input array nums. We iterate through the array once.
+
+Space complexity: O(1), as we use only a constant amount of extra space regardless of the size of the input array.
+
+# Code
+```
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        candidate = None
+        count = 0
+        for num in nums:
+            if count == 0:
+                candidate = num
+            count += (1 if num == candidate else -1)
+        return candidate
+    # Boyer-Moore Voting Algorithm #O(N)
+```

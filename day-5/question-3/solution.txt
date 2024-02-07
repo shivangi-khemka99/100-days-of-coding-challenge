@@ -1,0 +1,33 @@
+"Efficient Next Greater Element Finder"
+
+Leetcode solution link: https://leetcode.com/problems/next-greater-element-i/solutions/4693925/efficient-next-greater-element-finder/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+We aim to find the next greater element for each element in nums1 within nums2. We can achieve this efficiently using a stack-based approach. By iterating through nums2 from right to left, we can track the next greater element for each element in nums2 and store this information in a dictionary.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We iterate through nums2 from right to left and maintain a stack to track elements. For each element, we pop elements from the stack until we find an element greater than the current element. The next greater element for the popped elements is the current element. We store this information in a dictionary. Then, we can easily find the next greater element for each element in nums1 using the dictionary.
+
+# Complexity
+Time complexity: O(N + M), where N is the length of nums1 and M is the length of nums2. We iterate through nums2 once to populate the dictionary, and then iterate through nums1 to get the next greater elements.
+
+Space complexity: O(M), where M is the length of nums2. We use a stack and a dictionary to store the next greater elements.
+
+# Code
+```
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        stack = []
+        next_greater = {}
+
+        for num in reversed(nums2):
+            while stack and num>stack[-1]:
+                stack.pop()
+            next_greater[num] = stack[-1] if stack else -1
+            stack.append(num)
+        result = [next_greater[num] for num in nums1]
+        return result
+        #O(N+M)
+```
