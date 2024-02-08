@@ -1,0 +1,40 @@
+"Efficient Prefix Sum Calculation for Range Sum Queries in Python"
+
+Leetcode solution link: https://leetcode.com/problems/range-sum-query-immutable/solutions/4698365/efficient-prefix-sum-calculation-for-range-sum-queries-in-python/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem seems to require efficiently calculating the sum of a range of elements in an array. We need to handle multiple sum range queries efficiently.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We can preprocess the array to calculate the cumulative sum up to each index. Then, for each sum range query, we can directly return the difference between the cumulative sums at the right and left indices of the range.
+
+# Complexity
+
+Time complexity:
+Constructor: O(n), where n is the number of elements in the array. We iterate through the array once to calculate the cumulative sum.
+Query (sumRange): O(1), as we directly return the difference between the cumulative sums at the given indices.
+
+Space complexity: 
+O(n), where n is the number of elements in the array. We store the cumulative sum array, which requires additional space proportional to the input size.
+
+# Code
+```
+class NumArray:
+
+    def __init__(self, nums: List[int]):
+        self.nums = nums
+        self.sumArr = []
+        summ = 0
+        for i in range(len(nums)):
+            summ += nums[i]
+            self.sumArr.append(summ)
+
+    def sumRange(self, left: int, right: int) -> int:
+        return self.sumArr[right] - ( 0 if left == 0 else self.sumArr[left-1])
+
+# Your NumArray object will be instantiated and called as such:
+# obj = NumArray(nums)
+# param_1 = obj.sumRange(left,right)
+```

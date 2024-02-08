@@ -1,0 +1,28 @@
+"Efficient In-Place Approach for Finding Missing Numbers in Python"
+
+Leetcode solution link: https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/solutions/4698538/efficient-in-place-approach-for-finding-missing-numbers-in-python/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires finding all the numbers in the range [1, n] that do not appear in the given array. To efficiently achieve this without using extra space, we can leverage the given constraint that nums[i] is in the range [1, n]. We can manipulate the input array in-place to mark the presence of each number.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We iterate through the input array once. For each number num, we calculate its index in the array by taking its absolute value and subtracting 1. We then negate the value at this index to mark the presence of num. After marking all the numbers in the array, we scan it again to identify the indices where the values are still positive. These indices correspond to the missing numbers in the range [1, n].
+
+# Complexity
+Time complexity: O(n), where n is the length of the input array nums. We iterate through the array twice.
+
+Space complexity: O(1), as we modify the input array in-place and the space used is not dependent on the input size.
+
+# Code
+```
+class Solution:
+    def findDisappearedNumbers(self, nums: List[int]) -> List[int]:   
+        for num in nums:
+            index = abs(num) - 1
+            nums[index] = -abs(nums[index])
+        print(nums)
+        return [i + 1 for i in range(len(nums)) if nums[i] > 0]
+
+```

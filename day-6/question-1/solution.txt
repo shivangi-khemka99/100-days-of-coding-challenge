@@ -1,0 +1,32 @@
+"Python Solution for Finding Pivot Index in an Array"
+
+Leetcode solution link: https://leetcode.com/problems/find-pivot-index/solutions/4698299/python-solution-for-finding-pivot-index-in-an-array/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires finding the index where the sum of elements to the left of the index is equal to the sum of elements to the right of the index. Initially, we consider each index as the potential pivot point and calculate the left sum and right sum. If the left sum equals the right sum, we return that index. Otherwise, we continue iterating through the array.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We iterate through the array once. For each index i, we calculate the left sum and right sum. If the left sum equals the right sum, we return the index i. Otherwise, we move to the next index. If no such index is found, we return -1.
+
+# Complexity
+Time complexity: O(n), where n is the number of elements in the array. We iterate through the array once.
+
+Space complexity: O(1), as we are using only a constant amount of extra space.
+
+# Code
+```
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        total, leftSum = sum(nums), 0
+        for i in range(len(nums)):
+            if i == 0:
+                leftSum = 0
+            else:
+                leftSum += nums[i-1]
+            rightSum = total - nums[i] - leftSum
+            if leftSum == rightSum:
+                return i
+        return -1
+```
