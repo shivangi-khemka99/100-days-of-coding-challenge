@@ -1,0 +1,39 @@
+"HashSet Implementation with defaultdict"
+
+Leercode solution link: https://leetcode.com/problems/design-hashset/solutions/4702618/hashset-implementation-with-defaultdict/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem asks us to design a HashSet without using any built-in hash table libraries. We can achieve this by utilizing a dictionary-like object that automatically initializes the value associated with a key to a default value. For this purpose, we can use defaultdict(int).
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize a defaultdict named mp with the default value set to int. This will automatically initialize the value associated with any new key to 0.
+2. Implement the add method to set the value associated with the given key to True.
+3. Implement the remove method to set the value associated with the given key to False.
+4. Implement the contains method to return the value associated with the given key.
+
+# Complexity
+Time complexity:
+Adding a key: O(1)
+Removing a key: O(1)
+Checking if a key exists: O(1)
+
+Space complexity: O(n), where n is the number of unique keys in the HashSet.
+
+# Code
+```
+class MyHashSet:
+
+    def __init__(self):
+        self.mp=defaultdict(int)
+    
+    def add(self, key: int) -> None:
+        self.mp[key]=True
+
+    def remove(self, key: int) -> None:
+        self.mp[key]=False
+        
+    def contains(self, key: int) -> bool:
+        return self.mp[key]
+```

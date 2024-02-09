@@ -1,0 +1,41 @@
+"Word Pattern Matching: Character-to-Word Mapping"
+
+Leetcode solution link: https://leetcode.com/problems/word-pattern/solutions/4702533/word-pattern-matching-character-to-word-mapping/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires checking if a given pattern matches a string. We need to map each character in the pattern to a word in the string and ensure that the same character is always mapped to the same word, and vice versa.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize an empty dictionary pattern_dict to store the mapping of characters to words.
+2. Split the string s into a list of words.
+3. Check if the lengths of the pattern and the list of words are equal. If not, return False.
+4. Iterate over each character in the pattern.
+5. If the character is already present in pattern_dict, check if its corresponding word matches the word at the current index in the list of words. If not, return False.
+6. If the character is not present in pattern_dict, check if the corresponding word is already mapped to another character. If yes, return False. Otherwise, add the mapping of the character to the word in pattern_dict.
+7. If all characters in the pattern are mapped correctly to words, return True.
+
+# Complexity
+Time complexity: O(n), where n is the length of the pattern or the number of words in the string s. We iterate through the pattern and split the string into words, both of which are linear operations.
+ 
+Space complexity: O(n), where n is the number of unique characters in the pattern or the number of unique words in the string s. We store the mapping in the pattern_dict, which can have at most n entries.
+
+# Code
+```
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        pattern_dic = dict()
+        s = s.split()
+        if len(pattern) != len(s):
+            return False
+        for i in range(len(pattern)):
+            if pattern[i] in pattern_dic:
+                if pattern_dic[pattern[i]] != s[i]:
+                    return False
+            else:
+                if s[i] in pattern_dic.values():
+                    return False
+                pattern_dic[pattern[i]] = s[i]
+        return True
+```

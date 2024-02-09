@@ -1,0 +1,31 @@
+
+"Maximum Number of Balloons: Character Count Approach"
+
+Leetcode solution link: https://leetcode.com/problems/maximum-number-of-balloons/solutions/4702235/maximum-number-of-balloons-character-count-approach/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem asks to find the maximum number of times the word "balloon" can be formed using characters from the given text. To solve this, we need to count the occurrences of each required character ('b', 'a', 'l', 'o', 'n') in the text and consider the constraints imposed by the duplications of 'l' and 'o' in the word "balloon".
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Import the Counter class from the collections module to efficiently count the occurrences of characters in the text.
+2. Create a Counter object balloon_counts to store the counts of characters 'b', 'a', 'l', 'o', 'n' in the text.
+3. Calculate the minimum count of 'b', 'a', 'l' (divided by 2), 'o' (divided by 2), and 'n' in balloon_counts.
+4. Return the minimum count obtained in the previous step, as it represents the maximum number of times "balloon" can be formed.
+
+# Complexity
+Time complexity: O(N), where N is the length of the input text. The Counter class counts the occurrences of each character in linear time.
+
+Space complexity: O(1) in terms of the size of the input text, but O(5) for the storage of characters 'b', 'a', 'l', 'o', 'n' in the Counter object, which is essentially O(1).
+
+# Code
+```
+from collections import Counter
+
+class Solution:
+    def maxNumberOfBalloons(self, text: str) -> int:
+        balloon_counts = Counter(text)
+        return min(balloon_counts['b'], balloon_counts['a'], balloon_counts['l'] // 2, balloon_counts['o'] // 2, balloon_counts['n'])
+
+```
