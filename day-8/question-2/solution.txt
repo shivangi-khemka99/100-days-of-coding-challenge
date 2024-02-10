@@ -1,0 +1,29 @@
+"Efficient Sign Determination for Array Product"
+
+Leetcode solution link: https://leetcode.com/problems/sign-of-the-product-of-an-array/solutions/4707292/efficient-sign-determination-for-array-product/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The intuition behind this solution is to iterate through the given list of numbers and compute the overall sign based on the product of all elements. If the product is positive, the sign is 1; if it's negative, the sign is -1. If any element is zero, the sign becomes zero.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We initialize a variable sign to 1, representing the initial sign assumption. Then, we iterate through the list of numbers. If we encounter a zero, we immediately return 0. If the current number is negative, we update the sign variable accordingly by multiplying it by -1. Finally, we return the accumulated sign value.
+
+# Complexity
+Time complexity: O(n), where n is the length of the input list nums. We iterate through the list once.
+
+Space complexity: O(1), as we only use a constant amount of extra space regardless of the size of the input list.
+
+# Code
+```
+class Solution:
+    def arraySign(self, nums: List[int]) -> int:
+        sign = 1
+        for num in nums:
+            if num == 0:
+                return 0
+            elif num < 0:
+                sign *= -1
+        return sign
+```

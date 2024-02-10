@@ -1,0 +1,34 @@
+"Efficient Set Difference for Finding Element Discrepancies"
+
+Leetcode solution link: https://leetcode.com/problems/find-the-difference-of-two-arrays/solutions/4707470/efficient-set-difference-for-finding-element-discrepancies/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The initial intuition is to use sets to efficiently find the elements present in one list but not the other.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+The approach is to convert both input lists nums1 and nums2 into sets num1 and num2 respectively. Then, we iterate through each element of nums1 and nums2 to find the elements present in one set but not the other. We store these elements in separate result sets res1 and res2. Finally, we convert these result sets into lists and return them as the output.
+
+# Complexity
+Time complexity:
+Converting the lists to sets takes O(n) time, where n is the length of the longest input list.Iterating through the input lists and finding differences takes O(m+n) time, where m and n are the lengths of nums1 and nums2 respectively.Converting sets to lists takes O(m+n) time.
+Overall, the time complexity is O(m+n).
+
+Space complexity:
+We use sets to store elements, resulting in space complexity of O(m+n) for the result sets res1 and res2. 
+
+# Code
+```
+class Solution:
+    def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:
+        num1,num2 = set(nums1), set(nums2)
+        res1, res2 = set(), set()
+        for i in nums1:
+            if i not in num2:
+                res1.add(i)
+        for i in nums2:
+            if i not in num1:
+                res2.add(i)
+        return [list(res1), list(res2)]
+```

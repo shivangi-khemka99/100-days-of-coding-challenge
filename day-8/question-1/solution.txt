@@ -1,0 +1,24 @@
+"Efficient String Matching using Built-in Method (Python)"
+
+Leetcode solution link: https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/solutions/4707230/efficient-string-matching-using-built-in-method-python/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The initial intuition is to utilize the built-in find method of strings in Python, which efficiently searches for the first occurrence of the needle string within the haystack string.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+The approach here is straightforward. We use the find method to search for the needle string within the haystack string. If found, it returns the index of the first occurrence; otherwise, it returns -1.
+
+# Complexity
+Time complexity: The time complexity of the find method is typically O(n⋅m), where n is the length of the haystack string and m is the length of the needle string. However, Python's find method is optimized and may perform better in practice.
+
+Space complexity: The space complexity is O(1) since no extra space is used in the implementation.
+
+# Code
+```
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        return haystack.find(needle)
+    #O(N*M)
+```
