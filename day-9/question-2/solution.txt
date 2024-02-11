@@ -1,0 +1,43 @@
+"Bucket Sort Approach for Finding Top K Frequent Elements"
+
+Leetcode soltuion link: https://leetcode.com/problems/top-k-frequent-elements/solutions/4712379/bucket-sort-approach-for-finding-top-k-frequent-elements/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To find the k most frequent elements efficiently, we can use a counting approach. We count the frequency of each element in the input array nums using a Counter. Then, we group elements by their frequency in a count map, where the index represents the frequency and the value is a list of elements with that frequency. Finally, we iterate over the count map from high to low frequencies, adding elements to the result until we reach k elements.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Count the frequency of each element in nums using Counter.
+2. Create a count map where each index represents the frequency and the value is a list of elements with that frequency.
+3. Iterate over the count map from high to low frequencies.
+4. Append elements to the result until we have k elements.
+5. Return the result.
+
+# Complexity
+Time complexity:
+Constructing the count map takes O(n) time, where n is the length of nums.
+Iterating over the count map takes O(n) time in the worst case.
+Overall, the time complexity is O(n).
+
+Space complexity:
+The space complexity is O(n) for storing the count map and result list.
+
+# Code
+```
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        count = Counter(nums)
+        count_map = [[] for _ in range(len(nums) + 1)] 
+
+        for i in count:
+            count_map[count[i]].append(i)
+        
+        res = []
+        for i in range(len(count_map) - 1, 0, -1):
+            for j in count_map[i]:
+                res.append(j)
+                if len(res) == k:
+                    return res
+
+```

@@ -1,0 +1,40 @@
+"Anagram Grouping with Dictionary"
+
+Leetcode solution link: https://leetcode.com/problems/group-anagrams/solutions/4712136/anagram-grouping-with-dictionary/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires grouping anagrams together. Anagrams are words that have the same characters but in a different order. To solve this, we can use a hash table (dictionary in Python) where the keys are the sorted characters of each word, and the values are lists containing all words with the same sorted characters.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize an empty dictionary res where the keys will be tuples representing the sorted characters of words, and the values will be lists of words with the same sorted characters.
+2. Iterate through each word in the input list.
+3. For each word, count the occurrences of each character and create a tuple representing this count.
+4. Use this tuple as the key in the dictionary res and append the word to the corresponding list.
+5. Finally, return the values of the dictionary, which are lists of anagrams.
+
+# Complexity
+Time complexity:
+The outer loop iterates through each word in the input list, which takes O(N) time, where N is the total number of characters in all words.
+The inner loop iterates through each character in the word, which takes O(M) time for a word of length M.
+Thus, the overall time complexity is O(M * N), where M is the average length of words.
+
+Space complexity:
+We are using a dictionary to store anagrams, which can have up to O(N) keys if all words are unique anagrams.
+Additionally, for each key, we store a list of words, which can take up to O(N) space.
+Therefore, the overall space complexity is O(N).
+
+# Code
+```
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        res = defaultdict(list)
+        for st in strs:
+            count = [0]*26
+            for c in st:
+                count[ord(c) - ord("a")] +=1
+            res[tuple(count)].append(st)
+        return res.values()
+    #O(M*N)
+```

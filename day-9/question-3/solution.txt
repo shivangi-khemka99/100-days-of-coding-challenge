@@ -1,0 +1,41 @@
+"Two-Pass Product Calculation Without Division"
+
+Leetcode solution link: https://leetcode.com/problems/product-of-array-except-self/solutions/4712560/two-pass-product-calculation-without-division/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem asks us to find the product of all elements in the array except for the current element without using division. One way to achieve this is by using two passes through the array. In the first pass, we calculate the product of all elements to the left of each element. In the second pass, we calculate the product of all elements to the right of each element. Finally, we multiply these two products for each element to get the final result.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize an empty list output to store the products of all elements except self.
+2. In the first pass, iterate through the array and calculate the product of all elements to the left of each element. Store these products in the output list.
+3. Initialize a variable prod to 1 to store the product of all elements to the right of the current element.
+4. In the second pass, iterate through the array in reverse order and calculate the product of all elements to the right of each element. 
+5. Multiply this product with the corresponding product stored in the output list.
+6. Return the output list containing the final result.
+
+# Complexity 
+Time complexity:
+The algorithm involves two passes through the array, each taking O(n) time, where n is the length of the input array nums. Therefore, the overall time complexity is O(n).
+
+Space complexity:
+We use additional space to store the output list, which has the same length as the input array nums. Hence, the space complexity is O(n).
+
+# Code
+```
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        output = []
+        for i in range(len(nums)):
+            if i == 0:
+                output.append(1)
+            else:
+                output.append(nums[i-1]*output[-1])
+        prod = 1
+        for i in range(len(nums)-1,-1,-1):
+            if i != len(nums)-1:
+                prod *= nums[i+1]
+                output[i]*=prod
+        return output
+```
