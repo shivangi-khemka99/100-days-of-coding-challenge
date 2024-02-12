@@ -1,0 +1,46 @@
+"Two-Pointer Approach for Sorting Colors"
+
+Leetcode solution link: https://leetcode.com/problems/sort-colors/solutions/4717391/two-pointer-approach-for-sorting-colors/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires sorting an array containing only 0s, 1s, and 2s in ascending order. A straightforward approach is to use a two-pointer technique to partition the array into three sections: one for 0s, one for 1s, and one for 2s.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We initialize three pointers: left, right, and i. The left pointer points to the next position where a 0 should be placed, the right pointer points to the next position where a 2 should be placed, and the i pointer is a scanning pointer that iterates through the array.
+
+We iterate through the array using the i pointer until it reaches or exceeds the right pointer.
+
+If nums[i] is 0, we swap it with nums[left], increment left, and move i forward.
+If nums[i] is 2, we swap it with nums[right], decrement right, but we don't move i forward because we need to recheck the new element at nums[i] after swapping.
+If nums[i] is 1, we simply move i forward.
+This process continues until i crosses right, ensuring that all elements are correctly placed in their respective positions.
+
+# Complexity
+Time complexity: 
+O(n) - We iterate through the array once, with each element being processed once.
+
+Space complexity: 
+O(1) - We use only a constant amount of extra space for storing pointers, resulting in constant space complexity.
+
+# Code
+```
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        left, right = 0, len(nums) - 1
+        i = 0
+        while i <= right:
+            if nums[i] == 0:
+                nums[left], nums[i] = nums[i], nums[left]
+                left += 1
+                i += 1
+            elif nums[i] == 2:
+                nums[right], nums[i] = nums[i], nums[right]
+                right -= 1
+            else:
+                i += 1
+```

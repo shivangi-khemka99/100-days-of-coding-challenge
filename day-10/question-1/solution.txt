@@ -1,0 +1,36 @@
+"Efficient Solution using Hash Maps for Validating Sudoku Board"
+
+Leetcode solution link: https://leetcode.com/problems/valid-sudoku/solutions/4717075/efficient-solution-using-hash-maps-for-validating-sudoku-board/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires determining whether a given Sudoku board is valid or not. We need to check if each row, column, and 3x3 sub-box contains the digits 1-9 without repetition.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+To solve this problem, we can iterate over each cell in the Sudoku board. We'll maintain three dictionaries (rows, cols, and boxes) to keep track of the digits encountered in each row, column, and 3x3 sub-box, respectively. For each cell, if the digit is not a dot ('.'), we'll check if it's already present in the corresponding row, column, or sub-box. If it's already present, we return False, indicating an invalid Sudoku board. Otherwise, we add the digit to the respective sets in the dictionaries. If we iterate through all cells without encountering any issues, we return True, indicating a valid Sudoku board.
+
+# Complexity
+Time complexity: O(1) - Since the Sudoku board is always 9x9, the time complexity is constant, as we're iterating over a fixed-sized board.
+
+Space complexity: O(1) - Similar to time complexity, the space used by the dictionaries is constant, as they store digits encountered in rows, columns, and sub-boxes, which are limited to 9 in each case.
+
+# Code
+```
+class Solution:
+    def isValidSudoku(self,board):
+        rows = defaultdict(set)
+        cols = defaultdict(set)
+        boxes = defaultdict(set)
+        for r in range(9):
+            for c in range(9):
+                if board[r][c] != '.':
+                    current_num = board[r][c]
+                    if current_num in rows[r] or current_num in cols[c] or current_num in boxes[(r//3, c//3)]:
+                        return False
+                    rows[r].add(current_num)
+                    cols[c].add(current_num)
+                    boxes[(r//3, c//3)].add(current_num)
+        return True
+
+```

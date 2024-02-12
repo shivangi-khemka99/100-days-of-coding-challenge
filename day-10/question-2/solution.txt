@@ -1,0 +1,41 @@
+"Efficient Solution for Finding Longest Consecutive Sequence"
+
+Leetcode solution link: https://leetcode.com/problems/longest-consecutive-sequence/solutions/4717156/efficient-solution-for-finding-longest-consecutive-sequence/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires finding the length of the longest consecutive sequence in an array of integers. We can achieve this by iterating through the array and counting consecutive numbers starting from each unique number.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+To solve the problem, we can first convert the input list into a set to enable constant-time lookup. Then, we iterate through the set of numbers. For each number encountered, we check if its predecessor (i.e., num - 1) exists in the set. If not, we start counting consecutive numbers from the current number. We keep track of the maximum length of consecutive numbers encountered.
+
+# Complexity
+Time complexity: 
+O(n) - We iterate through the input list once to build the set, and then iterate through the set of numbers. Each iteration involves constant-time operations such as set lookup and arithmetic operations.
+
+Space complexity: 
+O(n) - We use additional space to store the input list as a set, resulting in space complexity proportional to the size of the input list.
+
+# Code
+```
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        hashset = set(nums)
+        max_length = 0
+        
+        for num in hashset:
+            if num - 1 not in hashset:  # Only start from the smallest number of a sequence
+                current_num = num
+                current_length = 1
+                
+                # Count consecutive numbers from the current number
+                while current_num + 1 in hashset:
+                    current_num += 1
+                    current_length += 1
+                
+                # Update the maximum length
+                max_length = max(max_length, current_length)
+        
+        return max_length
+```
