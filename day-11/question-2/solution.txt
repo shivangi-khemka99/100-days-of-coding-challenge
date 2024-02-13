@@ -1,0 +1,39 @@
+"Counting Palindromic Subsequences of Length Three"
+
+Leetcode solution link: https://leetcode.com/problems/unique-length-3-palindromic-subsequences/submissions/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem seems to involve finding the count of palindromic subsequences of length three in the given string s. We can observe that to form a palindromic subsequence of length three, we need at least two occurrences of the same character. Therefore, our intuition could be to count the occurrences of each character in the string and then find all possible combinations of two occurrences of the same character, considering the characters in between.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+To solve the problem, we use a defaultdict to store the indices of occurrences of each character in the string. Then, we iterate over the defaultdict to find all characters with at least two occurrences. For each such character, we extract the substring between the first and last occurrence and convert it to a set to get unique characters. We add the count of unique characters to the answer. Finally, we return the total count as the answer.
+
+# Complexity
+Time complexity:
+Building the hash map takes O(n), where n is the length of the string s.
+Iterating over the hash map and extracting substrings takes O(n) as well.
+Therefore, the overall time complexity is O(n).
+
+Space complexity:
+We use a defaultdict to store the indices of occurrences of characters, which takes O(n) space.
+Additionally, we use some extra space for variables.
+Therefore, the space complexity is O(n).
+
+# Code
+```
+class Solution:
+    def countPalindromicSubsequence(self, s: str) -> int:
+        h = defaultdict(list)
+        ans = 0
+        
+        for idx in range(len(s)):
+            h[s[idx]].append(idx)
+            
+        for k,v in h.items():
+            if len(v) >= 2:
+                ans += len(set(s[v[0]+1:v[-1]]))
+        print(h)
+        return ans
+```

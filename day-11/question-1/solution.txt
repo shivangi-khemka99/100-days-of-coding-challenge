@@ -1,0 +1,37 @@
+"Subarray Sum Equals K Solution Using Prefix Sums"
+
+Leetcode solution link: https://leetcode.com/problems/subarray-sum-equals-k/solutions/4722665/subarray-sum-equals-k-solution-using-prefix-sums/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem involves finding the total number of subarrays whose sum equals a given value, k. One way to approach this is by utilizing the concept of prefix sums. By keeping track of the cumulative sum of elements encountered so far and maintaining a count of these sums, we can efficiently determine the number of subarrays with the desired sum.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+The approach involves iterating through the nums list and updating the cumulative sum (sum_so_far) at each step. We maintain a dictionary sum_counts to store the counts of cumulative sums encountered so far. If there exists a cumulative sum x such that x - k = sum_so_far, then there exists a subarray whose sum equals k. We add the count of such cumulative sums to the count variable. After processing all elements, we return the final value of count, representing the total count of subarrays whose sum equals k.
+
+# Complexity
+Time complexity:
+The algorithm iterates through the nums list once, making it linear with respect to the length of the list. The dictionary operations also take constant time on average. Hence, the time complexity is O(n), where n is the length of the nums list.
+
+Space complexity:
+The space complexity is also linear, as we use a dictionary sum_counts to store the counts of cumulative sums encountered so far. Therefore, the space complexity is O(n), where n is the length of the nums list.
+
+# Code
+```
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        count = 0
+        sum_so_far = 0
+        sum_counts = defaultdict(int)
+        sum_counts[0] = 1
+        
+        for num in nums:
+            sum_so_far+=num
+            diff = sum_so_far-k
+            count+=sum_counts[diff]
+            sum_counts[sum_so_far]+=1
+      
+        return count
+
+```
