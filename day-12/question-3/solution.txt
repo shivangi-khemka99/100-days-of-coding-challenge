@@ -1,0 +1,34 @@
+"Minimum Difference Between Highest and Lowest Scores of K Students"
+
+Leetcode solution link: https://leetcode.com/problems/minimum-difference-between-highest-and-lowest-of-k-scores/solutions/4728403/minimum-difference-between-highest-and-lowest-scores-of-k-students/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To minimize the difference between the highest and lowest scores of any k students, one approach is to sort the scores in ascending order. Then, we can iterate through the sorted array to find the minimum difference for each window of size k.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+The provided solution first sorts the nums array in ascending order. Then, it initializes two pointers l and r to keep track of the left and right ends of the window respectively. It iterates through the array and calculates the difference between the score at position r and the score at position l. The minimum difference found across all windows is stored in the variable res.
+
+# Complexity
+Time complexity:
+Sorting the nums array takes O(n log n) time, where n is the length of the array.
+The iteration through the array takes O(n) time.
+Thus, the overall time complexity is O(n log n).
+
+Space complexity:
+The space complexity is O(1) because the algorithm only uses a constant amount of extra space, regardless of the size of the input array.
+
+# Code
+```
+class Solution:
+    def minimumDifference(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        l,r = 0,k-1
+        res = float("inf")
+        while(r<len(nums)):
+            res = min(res,nums[r]-nums[l])
+            l+=1
+            r+=1
+        return res
+```

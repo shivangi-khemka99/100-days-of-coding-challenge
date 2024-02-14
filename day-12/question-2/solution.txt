@@ -1,0 +1,46 @@
+"Valid Palindrome II Solution - Two-Pointer Approach"
+
+Leetcode solution link: https://leetcode.com/problems/valid-palindrome-ii/solutions/4728228/valid-palindrome-ii-solution-two-pointer-approach/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires determining whether a given string can be a palindrome by deleting at most one character from it. One way to approach this problem is to use a two-pointer technique, where we compare characters from both ends of the string and check if they are equal. If they are not equal, we attempt to delete either the character at the left pointer or the character at the right pointer and then check if the resulting substring is a palindrome.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We define a helper function is_palindrome to check if a given substring is a palindrome. Then, we use two pointers, one at the beginning of the string and the other at the end, to iterate through the string. If the characters at these pointers are not equal, we attempt to delete either character and check if the resulting substring is a palindrome. If any of these attempts result in a palindrome, we return true. If none of the attempts result in a palindrome, we return false.
+
+# Complexity
+Time complexity:
+The time complexity of this approach is O(n), where n is the length of the input string. This is because we iterate through the string once using two pointers.
+
+Space complexity:
+The space complexity is O(1), as we only use a constant amount of extra space regardless of the size of the input string.
+
+# Code
+```
+class Solution:
+    def validPalindrome(self,s: str) -> bool:
+        def is_palindrome(left, right):
+            while left < right:
+                if s[left] != s[right]:
+                    return False
+                left += 1
+                right -= 1
+            return True
+        
+        left = 0
+        right = len(s) - 1
+        
+        while left < right:
+            if s[left] != s[right]:
+                if is_palindrome(left + 1, right):
+                    return True
+                if is_palindrome(left, right - 1):
+                    return True
+                return False
+            left += 1
+            right -= 1
+        
+        return True
+```

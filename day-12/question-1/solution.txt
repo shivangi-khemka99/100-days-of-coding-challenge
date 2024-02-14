@@ -1,0 +1,42 @@
+"Efficient Two-Pointer Approach for Palindrome Detection"
+
+Leetcode solution link: https://leetcode.com/problems/valid-palindrome/solutions/4727956/efficient-two-pointer-approach-for-palindrome-detection/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To check if a string is a palindrome, we can use a two-pointer approach where we compare characters from the start and end of the string. We'll skip non-alphanumeric characters and compare characters ignoring their case.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We initialize two pointers, left and right, pointing to the start and end of the string, respectively. While left is less than right, we iterate through the string. At each iteration:
+
+1. If the character at left is not alphanumeric, we increment left.
+2. If the character at right is not alphanumeric, we decrement right.
+3. If both characters are alphanumeric, we compare them (ignoring case).
+4. If they are not equal, we return False.
+5. Finally, we increment left and decrement right.
+If the loop completes without finding any non-matching alphanumeric characters, we return True, indicating that the string is a palindrome.
+
+# Complexity
+Time complexity: O(n), where n is the length of the input string. We only need to iterate through the string once.
+Space complexity: O(1), as we use a constant amount of extra space, regardless of the size of the input string.
+
+# Code
+```
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        left, right = 0, len(s) - 1
+        while left < right:
+            if not s[left].isalnum():
+                left += 1
+                continue
+            if not s[right].isalnum():
+                right -= 1
+                continue
+            if s[left].lower() != s[right].lower():
+                return False
+            left += 1
+            right -= 1
+        return True
+
+```
