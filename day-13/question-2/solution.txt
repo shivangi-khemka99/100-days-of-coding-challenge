@@ -1,0 +1,32 @@
+"In-Place String Reversal Using Two-Pointer Technique"
+
+Leetcode solution link: https://leetcode.com/problems/reverse-string/solutions/4732144/in-place-string-reversal-using-two-pointer-technique/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem involves reversing a string. One intuitive approach is to use a two-pointer technique where we have a left pointer starting from the beginning of the string and a right pointer starting from the end of the string. We swap characters at these positions and move the pointers towards each other until they meet.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We implement the two-pointer technique to reverse the string in place. We initialize two pointers, l and r, pointing to the beginning and end of the string respectively. We continue swapping characters at these positions until l crosses r, effectively reversing the string in place.
+
+# Complexity
+Time complexity:
+The two-pointer technique involves iterating over half of the string's length, so the time complexity is O(n/2), which simplifies to O(n), where n is the length of the string.
+
+Space complexity:
+We use a constant amount of extra space for variables (l, r), resulting in O(1) space complexity.
+
+# Code
+```
+class Solution:
+    def reverseString(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        l,r = 0,len(s)-1
+        while l < r:
+            s[l],s[r] = s[r],s[l]
+            l+=1
+            r-=1
+```

@@ -1,0 +1,33 @@
+"Alternating String Merger"
+
+Leetcode solution link: https://leetcode.com/problems/merge-strings-alternately/solutions/4732111/alternating-string-merger/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+We aim to merge two strings alternately, meaning we take one character from each string at a time and append them to form a new string. To achieve this, we can iterate over both input strings simultaneously and concatenate characters alternatively.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Our approach involves using the zip function to iterate over the characters of both input strings simultaneously. Within the loop, we concatenate characters alternately from word1 and word2. After the loop, we append any remaining characters from the longer string (if any) to the merged string.
+
+# Complexity
+Time complexity:
+The zip function iterates over the shorter of the two input strings, which has a length of min(N, M), where N is the length of word1 and M is the length of word2.
+Concatenating strings in Python takes O(k) time, where k is the length of the resulting string. In our case, the resulting string will have a length of at most 2 * min(N, M).
+Appending any remaining characters from the longer string also takes O(max(N, M)) time, as it involves slicing and concatenating.
+Overall, the time complexity is O(max(N, M)).
+
+Space complexity:
+We use additional space to store the merged string, which could have a length of at most the sum of the lengths of word1 and word2.
+Therefore, the space complexity is O(N + M).
+
+# Code
+```
+class Solution:
+    def mergeAlternately(self, word1: str, word2: str) -> str:
+        merged = ''
+        for char1, char2 in zip(word1, word2):
+            merged += char1 + char2
+        merged += word1[len(word2):] + word2[len(word1):]
+        return merged
+```
