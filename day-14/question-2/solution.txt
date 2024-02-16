@@ -1,0 +1,28 @@
+"Remove Duplicates from Sorted Array in-Place"
+
+Leetcode solution link: https://leetcode.com/problems/remove-duplicates-from-sorted-array/solutions/4738531/remove-duplicates-from-sorted-array-in-place/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem involve removing duplicates from a sorted array while maintaining the order of elements.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+To solve this problem, we can use a two-pointer approach where one pointer (l) represents the position where the next non-duplicate element should be placed, and the other pointer (r) iterates through the array to check for duplicates. As we iterate through the array, if we encounter a new element (i.e., if nums[r] != nums[r-1]), we place it at the position indicated by l and increment l. This way, all duplicates will be removed, and the non-duplicate elements will be placed at the beginning of the array.
+
+# Complexity
+Time complexity: O(n) - We iterate through the array once.
+
+Space complexity: O(1) - We only use a constant amount of extra space.
+
+# Code
+```
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        l = 1
+        for r in range(1,len(nums)):
+            if nums[r]!=nums[r-1]:
+                nums[l] = nums[r]
+                l+=1
+        return l
+```

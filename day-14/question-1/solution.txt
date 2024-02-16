@@ -1,0 +1,31 @@
+"In-Place Move Zeroes to the Front"
+
+Leetcode solution link: https://leetcode.com/problems/move-zeroes/solutions/4738372/in-place-move-zeroes-to-the-front/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+Your intuition seems to be to iterate through the array, maintaining a pointer l that represents the index where the next non-zero element should be placed.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+You iterate through the array using a pointer r, and whenever you encounter a non-zero element at index r, you swap it with the element at index l, effectively moving non-zero elements to the front of the array.
+
+# Complexity
+Time complexity: The time complexity of your solution is O(n), where n is the length of the input array nums. This is because it iterates through the array once.
+
+Space complexity: Doesn't use any extra space proportional to the size of the input array. Thus, the space complexity is O(1).
+
+# Code
+```
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        l = 0
+        for r in range(len(nums)):
+            if nums[r]:
+                nums[l],nums[r] = nums[r],nums[l]
+                l+=1
+
+```
