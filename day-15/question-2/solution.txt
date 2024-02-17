@@ -1,0 +1,33 @@
+"Valid Parentheses using Stack"
+
+Leetcode solution link: https://leetcode.com/problems/valid-parentheses/solutions/4743262/valid-parentheses-using-stack/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem involves validating if a given string containing various types of brackets (parentheses, square brackets, and curly brackets) is validly nested. An intuitive approach would involve using a stack data structure to keep track of the opening brackets encountered. When encountering a closing bracket, we can check if it corresponds to the top of the stack, indicating a valid nesting.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+The approach here is to utilize a stack data structure. We iterate through each character in the string. If the character is an opening bracket, we push it onto the stack. If it's a closing bracket, we check if it corresponds to the opening bracket at the top of the stack. If it does, we pop the opening bracket from the stack. If the stack is empty after processing all characters, the string is valid.
+
+# Complexity
+Time complexity:O(n), where n is the length of the input string. We iterate through each character once.
+
+Space complexity: O(n), where n is the worst-case space required for the stack when all characters are opening brackets.
+
+# Code
+```
+class Solution:
+    def isValid(self, s: str) -> bool:
+        stack = []
+        check = {')': '(' , '}': '{', ']': '[' }
+        for i in s:
+            if i in check.values():
+                stack.append(i)
+                continue
+            if stack and check[i] == stack[-1]:
+                stack.pop()
+            else:
+                return False
+        return not stack
+```

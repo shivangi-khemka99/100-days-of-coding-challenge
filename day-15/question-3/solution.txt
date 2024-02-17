@@ -1,0 +1,33 @@
+"Baseball Game Score Calculation"
+
+Leetcode solution link: https://leetcode.com/problems/baseball-game/solutions/4743364/baseball-game-score-calculation/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem seems to involve simulating a game where certain points are scored based on different operations performed.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We can use a stack to keep track of the scores. We iterate through each operation in the given list. If the operation is 'C' (cancel), we remove the last valid score from the stack. If the operation is 'D' (double), we double the last valid score and add it to the stack. If the operation is '+' (sum), we add the sum of the last two valid scores to the stack. Otherwise, if the operation is a numeric score, we simply add it to the stack. After iterating through all operations, we sum up the scores in the stack to get the total score.
+
+# Complexity
+Time complexity: O(n), where is the number of operations in the input list. We iterate through each operation once.
+
+Space complexity: O(n), where n is the maximum size of the stack, which could hold all operations in the worst case.
+
+# Code
+```
+class Solution:
+    def calPoints(self, operations: List[str]) -> int:
+        stack = []
+        for op in operations:
+            if op == 'C':
+                stack.pop()
+            elif op == 'D':
+                stack.append(stack[-1] * 2)
+            elif op == '+':
+                stack.append(stack[-1] + stack[-2])
+            else:
+                stack.append(int(op))
+        return sum(stack)
+```

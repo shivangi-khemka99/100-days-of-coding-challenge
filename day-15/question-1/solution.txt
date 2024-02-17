@@ -1,0 +1,39 @@
+ "Sliding Window Approach for Finding Nearby Duplicates"
+
+ Leetcode solution link: https://leetcode.com/problems/contains-duplicate-ii/solutions/4743188/sliding-window-approach-for-finding-nearby-duplicates/
+
+ # Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem asks whether there are two distinct indices i and j in the given list nums such that nums[i] == nums[j] and |i - j| <= k. The approach here is to use a sliding window technique. We maintain a set to keep track of the elements within the current window of size k. As we move the window forward, we check if the current element is already present in the set. If it is, we return True since we've found a duplicate within the allowed range. Otherwise, we add the current element to the set. If the window size exceeds k, we remove the leftmost element from the set.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize an empty set window to keep track of elements within the window and variables L and R to represent the left and right boundaries of the window.
+2. Iterate through the list nums using a sliding window defined by L and R.
+3. Check if the difference between R and L is greater than k. If it is, remove the leftmost element from the window set and increment L.
+4. Check if the current element nums[R] is already present in the window set. If it is, return True as we've found a duplicate within the allowed range.
+5. Otherwise, add the current element nums[R] to the window set.
+6. If no duplicates are found after iterating through the entire list, return False.
+
+# Complexity
+Time complexity:
+The time complexity of this approach is O(n), where n is the number of elements in the input list nums. We only iterate through the list once.
+
+Space complexity:
+The space complexity is O(min(n, k)), where n is the number of elements in the input list nums and k is the value of the parameter k. In the worst case, if all elements in the list are distinct, the set window would store at most k elements.
+
+# Code
+```
+class Solution:
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        window = set()
+        L = 0
+        for R in range(len(nums)):
+            if R - L > k:
+                window.remove(nums[L])
+                L+=1
+            if nums[R] in window:
+                return True
+            window.add(nums[R])
+        return False
+```
