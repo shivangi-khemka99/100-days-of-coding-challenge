@@ -1,0 +1,32 @@
+"Binary Search for Target in Sorted List"
+
+Leetcode solution link: https://leetcode.com/problems/binary-search/solutions/4747374/binary-search-for-target-in-sorted-list/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem appears to involve finding the index of a target integer in a sorted list of numbers using binary search.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We can use a binary search algorithm to efficiently locate the target integer in the sorted list. We maintain two pointers, l and r, representing the left and right boundaries of the search range, respectively. We iteratively narrow down the search range by adjusting these pointers based on the comparison between the middle element and the target integer. If the middle element equals the target, we return its index. If the middle element is greater than the target, we adjust the right pointer to search the left half. Otherwise, we adjust the left pointer to search the right half. We repeat this process until the search range is exhausted or the target is found.
+
+# Complexity
+Time complexity: O(logn), where n is the number of elements in the list. Binary search operates on a divide-and-conquer strategy, halving the search range in each iteration.
+
+Space complexity: O(1), as the algorithm only uses a constant amount of additional space for pointers.
+
+# Code
+```
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        l,r = 0,len(nums)-1
+        while (l <= r):
+            mid = (l+r) // 2
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] > target:
+                r = mid-1
+            else:
+                l = mid+1
+        return -1
+```

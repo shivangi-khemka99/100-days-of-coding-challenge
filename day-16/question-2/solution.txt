@@ -1,0 +1,32 @@
+"Binary Search for Insert Position"
+
+Leetcode solution link: https://leetcode.com/problems/search-insert-position/solutions/4747397/binary-search-for-insert-position/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem seems to involve finding the index where a target integer should be inserted into a sorted list of numbers, maintaining the sorted order.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+should be inserted while maintaining the sorted order of the list. We maintain two pointers, l and r, representing the left and right boundaries of the search range, respectively. We iteratively narrow down the search range by adjusting these pointers based on the comparison between the middle element and the target integer. If the middle element equals the target, we return its index. If the middle element is greater than the target, we adjust the right pointer to search the left half. Otherwise, we adjust the left pointer to search the right half. We repeat this process until the search range is exhausted. If the target is not found, we return the current position of the left pointer as it indicates the index where the target should be inserted while maintaining the sorted order.
+
+# Complexity
+Time complexity: O(logn), where n is the number of elements in the list. Binary search operates on a divide-and-conquer strategy, halving the search range in each iteration.
+
+Space complexity: O(1), as the algorithm only uses a constant amount of additional space for pointers.
+
+# Code
+```
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) - 1
+        while l <= r:
+            mid = (l + r) // 2
+            if nums[mid] == target:
+                return mid
+            elif nums[mid] > target:
+                r = mid - 1
+            else:
+                l = mid + 1
+        return l
+```
