@@ -1,0 +1,34 @@
+"Binary Search for Perfect Square"
+
+Leetcode solution link: https://leetcode.com/problems/valid-perfect-square/solutions/4753546/binary-search-for-perfect-square/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem involves determining whether a given integer is a perfect square.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We can use a binary search approach to efficiently find if the given integer is a perfect square. We maintain two pointers, l and r, representing the lower and upper bounds of the search range, respectively. In each iteration, we calculate the square of the middle number using the formula mid ** 2. If the square is greater than the given number, we adjust the upper bound r to search in the lower half. If the square is less than the given number, we adjust the lower bound l to search in the upper half. If the square equals the given number, we return True indicating that it's a perfect square. If the search range is exhausted without finding a perfect square, we return False.
+
+# Complexity
+Time complexity: O(logn), where n is the given number. Binary search efficiently narrows down the search range in each iteration.
+
+Space complexity: O(1), as the algorithm only uses a constant amount of additional space for pointers and variables.
+
+# Code
+```
+class Solution:
+    def isPerfectSquare(self, num: int) -> bool:
+        l,r = 1,num
+        res = 1
+        while (l<=r):
+            mid = (l+r) // 2
+            sq = mid ** 2
+            if sq > num:
+                r = mid - 1
+            elif sq < num:
+                l = mid + 1
+            else:
+                return True
+        return False
+```

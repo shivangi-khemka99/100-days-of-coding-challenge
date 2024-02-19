@@ -1,0 +1,33 @@
+"Binary Search for Arranging Coins"
+
+Leetcode solution link: https://leetcode.com/problems/arranging-coins/solutions/4753417/binary-search-for-arranging-coins/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem appears to involve arranging coins in a staircase pattern and determining the number of complete rows that can be formed with a given number of coins.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We can utilize binary search to efficiently determine the number of complete rows of coins that can be arranged with the given number of coins. We maintain two pointers, l and r, representing the lower and upper bounds of the search range, respectively. In each iteration, we calculate the number of coins that would be required to form mid complete rows using the formula for the sum of an arithmetic series. If the calculated sum exceeds the given number of coins n, we adjust the upper bound r to search in the lower half. Otherwise, we adjust the lower bound l to search in the upper half. We repeat this process until the search range is exhausted.
+
+# Complexity
+Time complexity: O(logn), where n is the given number of coins. Binary search efficiently narrows down the search range in each iteration.
+
+Space complexity: O(1), as the algorithm only uses a constant amount of additional space for pointers and variables.
+
+# Code
+```
+class Solution:
+    def arrangeCoins(self, n: int) -> int:
+        l,r = 1, n
+        res = 0
+        while(l<=r):
+            mid = (l+r) // 2
+            summ = (mid / 2) * (mid+1)
+            if summ > n :
+                r = mid - 1 
+            else:
+                l = mid + 1
+                res = max(mid, res)
+        return res
+```

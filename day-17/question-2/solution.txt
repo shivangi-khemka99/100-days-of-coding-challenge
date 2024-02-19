@@ -1,0 +1,35 @@
+"Two-Pointer Approach for Sorting Squares"
+
+Leetcode solution link: https://leetcode.com/problems/squares-of-a-sorted-array/solutions/4753489/two-pointer-approach-for-sorting-squares/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem involves squaring each element in a sorted list of integers and returning the resulting list sorted in non-decreasing order.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Since the input list is sorted, we can use a two-pointer approach to efficiently square each element and maintain the sorted order of the squared values. We initialize two pointers, l and r, pointing to the start and end of the list, respectively. We compare the absolute values of the elements pointed to by l and r, square them, and append the larger squared value to a result list. We then move the pointers accordingly. After iterating through all elements, we return the reversed result list to maintain the non-decreasing order.
+
+# Complexity
+Time complexity: O(n), where n is the number of elements in the input list. We traverse each element once.
+
+Space complexity: O(n), where n is the number of elements in the input list. We store the squared values in a separate list.
+
+# Code
+```
+class Solution:
+    def sortedSquares(self, nums: List[int]) -> List[int]:
+        l,r = 0,len(nums)-1
+        num = []
+        while l<=r:
+            opL = nums[l]**2
+            opR = nums[r]**2
+            if  opL > opR:
+                num.append(opL)
+                l+=1
+            else:
+                num.append(opR)
+                r-=1
+        return num[::-1]
+        #Time complexty: O(N) ; Space complexity: O(N)
+```
