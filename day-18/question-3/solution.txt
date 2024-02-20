@@ -1,0 +1,44 @@
+"Iterative Merge of Sorted Linked Lists"
+
+Leetcode solution link: https://leetcode.com/problems/merge-two-sorted-lists/solutions/4758420/iterative-merge-of-sorted-linked-lists/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem involves merging two sorted linked lists into one sorted linked list.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We can merge the two lists iteratively by comparing the values of nodes from both lists and appending the smaller node to the merged list. We maintain a dummy node to serve as the starting point of the merged list and a tail pointer to keep track of the last node appended to the merged list. We iterate through both lists simultaneously, comparing the values of nodes at each step. We append the node with the smaller value to the merged list and move the corresponding pointer forward. We continue this process until one of the lists is exhausted. After that, we append the remaining nodes of the non-empty list to the merged list. Finally, we return the next node of the dummy node, which represents the head of the merged list.
+
+# Complexity
+Time complexity: O(n+m), where n and m are the lengths of the two input lists. We traverse each node of both lists once during the merging process.
+
+Space complexity: O(1), as we only use a constant amount of additional space for pointers.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeTwoLists(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode()
+        tail = dummy
+        while l1 and l2:
+            if l1.val < l2.val:
+                tail.next = l1
+                l1 = l1.next
+            else:
+                tail.next = l2
+                l2 = l2.next
+            tail = tail.next
+        if l1:
+            tail.next = l1
+        else:
+            tail.next = l2
+        return dummy.next
+
+        
+```

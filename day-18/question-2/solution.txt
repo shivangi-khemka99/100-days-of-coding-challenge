@@ -1,0 +1,34 @@
+"Iterative Reversal of Linked List"
+
+Leetcode solution link: https://leetcode.com/problems/reverse-linked-list/solutions/4758292/iterative-reversal-of-linked-list/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem involves reversing a singly-linked list.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We can reverse the linked list iteratively using three pointers: curr, prev, and temp. We start by setting curr to the head of the list and prev to None. Then, we iterate through the list. In each iteration, we first store the next node of curr in temp. Then, we update the next pointer of curr to point to prev, effectively reversing the link. After that, we move prev to curr and curr to temp, continuing the iteration. Once we reach the end of the list, prev will be pointing to the new head of the reversed list, so we return it.
+
+# Complexity
+Time complexity: O(n), where n is the number of nodes in the linked list. We traverse each node once.
+
+Space complexity: O(1), as we only use a constant amount of additional space for pointers.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        curr, prev = head, None
+        while curr:
+            temp = curr.next
+            curr.next = prev
+            prev = curr
+            curr = temp
+        return prev
+```
