@@ -1,0 +1,49 @@
+"Sorted Linked List Duplicates Remover"
+
+Leetcode solution link: https://leetcode.com/problems/remove-duplicates-from-sorted-list/solutions/4764136/sorted-linked-list-duplicates-remover/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem aims to remove duplicates from a sorted linked list.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize two pointers, slow and fast, both starting from the head of the linked list.
+2. Move fast pointer to the next node.
+3. Compare the values pointed by slow and fast pointers.
+4. If the values are equal, it means there is a duplicate. Skip the duplicate by updating the next pointer of slow to the node after fast.
+5. If the values are not equal, move both pointers forward.
+6. Continue this process until the end of the list.
+7. Finally, handle the case where the last node might be a duplicate.
+8. Return the head of the modified list.
+
+# Complexity
+Time complexity:
+The algorithm traverses the entire linked list once, so the time complexity is O(n), where n is the number of nodes in the list.
+
+Space complexity:
+The algorithm uses only a constant amount of extra space, so the space complexity is O(1).
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        slow = head
+        fast = head.next if head else None
+        while fast and fast.next:
+            if fast.val != slow.val:
+                slow.next = fast
+                slow = fast
+            fast = fast.next
+        if slow and fast:
+            if slow.val == fast.val:
+                slow.next = None
+            else:
+                slow.next = fast
+        return head
+```

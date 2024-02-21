@@ -1,0 +1,59 @@
+"Palindrome Linked List Checker with Reversed Second Half"
+
+Leetcode solution link: https://leetcode.com/problems/palindrome-linked-list/solutions/4763972/palindrome-linked-list-checker-with-reversed-second-half/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires determining whether a given linked list is a palindrome or not. A palindrome is a sequence that reads the same forwards and backwards. One approach to solving this problem is to reverse the second half of the linked list and then compare it with the first half to check for symmetry.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize two pointers, fast and slow, both pointing to the head of the linked list.
+2. Move fast two steps and slow one step at a time until fast reaches the end of the list. This will locate the middle of the linked list.
+3. Reverse the second half of the linked list starting from the node pointed by slow.
+4. Compare the first half (from the original head) with the reversed second half (from the new slow) to check for palindrome property.
+5. If at any point the values of corresponding nodes in the first and reversed second halves don't match, return False. Otherwise, return True.
+
+# Complexity
+Time complexity:
+The first traversal to find the middle of the linked list takes O(n/2), where n is the number of nodes in the list.
+Reversing the second half takes O(n/2).
+Comparing both halves takes O(n/2).
+Overall time complexity is O(n).
+
+Space complexity:
+The space complexity is O(1) because we are using only a constant amount of extra space.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        fast = head
+        slow = head
+
+        #Find middle
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+        
+        #Reverse second half of the linkedlist
+        prev = None
+        while slow:
+            temp = slow.next
+            slow.next = prev
+            prev = slow
+            slow = temp
+        
+        #Check palindrom
+        while head and prev:
+            if head.val != prev.val:
+                return False
+            head = head.next
+            prev = prev.next
+        return True
+```
