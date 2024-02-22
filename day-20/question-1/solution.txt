@@ -1,0 +1,35 @@
+"Middle Node of a Singly Linked List: Two Pointer Approach"
+
+Leetcode solution link: https://leetcode.com/problems/middle-of-the-linked-list/solutions/4768060/middle-node-of-a-singly-linked-list-two-pointer-approach/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires finding the middle node of a singly-linked list. One intuitive approach is to use two pointers: a slow pointer and a fast pointer. The fast pointer moves twice as fast as the slow pointer. When the fast pointer reaches the end of the list, the slow pointer will be at the middle of the list.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Initialize two pointers, fast and slow, both pointing to the head of the linked list.
+Move fast pointer two steps at a time and slow pointer one step at a time.
+When fast pointer reaches the end of the list (fast is None or fast.next is None), slow pointer will be at the middle of the list.
+Return the node pointed by the slow pointer.
+
+# Complexity
+Time complexity: O(n) where n is the number of nodes in the linked list. We traverse the entire list once.
+
+Space complexity: O(1) since we are using only a constant amount of extra space.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        fast, slow = head, head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+        return slow
+```

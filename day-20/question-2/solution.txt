@@ -1,0 +1,37 @@
+"Intersection Node of Two Linked Lists: Two Pointer Approach"
+
+Leetcode solution link: https://leetcode.com/problems/intersection-of-two-linked-lists/solutions/4768160/intersection-node-of-two-linked-lists-two-pointer-approach/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem involves finding the intersection node of two linked lists. One way to approach this problem is to use two pointers. Initially, set two pointers, one for each linked list. Traverse each list simultaneously until they reach the end or intersect at a common node.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Initialize two pointers tempA and tempB pointing to the heads of the two linked lists.
+Traverse both linked lists simultaneously until either tempA or tempB becomes None.
+If tempA reaches the end, redirect it to the head of the other linked list (headB), and vice versa for tempB.
+Continue traversing until both pointers meet at the intersection node or reach the end.
+Return the intersection node if found, otherwise return None.
+
+# Complexity
+Time complexity: O(m+n), where m and n are the lengths of the two linked lists. Both pointers traverse the combined length of the two lists.
+
+Space complexity: O(1) since we are using only a constant amount of extra space.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        tempA, tempB = headA, headB
+
+        while tempA != tempB:
+            tempA = tempA.next if tempA else headB
+            tempB = tempB.next if tempB else headA
+        return tempA
+```

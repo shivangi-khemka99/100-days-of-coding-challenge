@@ -1,0 +1,38 @@
+"Cycle Detection in a Linked List: Floyd's Tortoise and Hare Algorithm"
+
+Leetcode solution link: https://leetcode.com/problems/linked-list-cycle/solutions/4768240/cycle-detection-in-a-linked-list-floyd-s-tortoise-and-hare-algorithm/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem is to determine whether a linked list contains a cycle. One intuitive approach to solve this problem is to use two pointers: a slow pointer and a fast pointer. If there is a cycle in the linked list, the fast pointer will eventually catch up to the slow pointer.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Initialize two pointers, slow and fast, both pointing to the head of the linked list.
+Move slow pointer one step at a time and fast pointer two steps at a time.
+If fast pointer reaches the end of the list (i.e., fast is None or fast.next is None), there is no cycle and return False.
+If slow and fast pointers meet at some point, there is a cycle and return True.
+
+# Complexity
+Time complexity: O(n) where n is the number of nodes in the linked list. In the worst case, we traverse the entire list once.
+
+Space complexity: O(1) since we are using only a constant amount of extra space.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        slow, fast = head, head
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                return True
+        return False
+```
