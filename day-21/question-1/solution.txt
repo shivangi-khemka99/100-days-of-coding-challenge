@@ -1,0 +1,79 @@
+"Maximum Pairwise Sum in a Linked List: Efficient Reversal Method"
+
+Leetcode solution link: https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/solutions/4777128/maximum-pairwise-sum-in-a-linked-list-efficient-reversal-method/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The intuition behind this approach seems to be finding pairs of nodes in the linked list and calculating the sum of their values, then returning the maximum sum among all pairs.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+The provided code has two approaches commented out:
+
+1. The first approach involves using a dictionary to store the values of the first half of the linked list, then iterating through the second half of the linked list and calculating the sum of each pair of corresponding elements, finally returning the maximum sum encountered.
+
+2. The second approach involves reversing the linked list up to its midpoint, then iterating through both the original and reversed linked lists simultaneously and calculating the sum of corresponding elements, finally returning the maximum sum encountered.
+
+# Complexity
+
+Time complexity:
+The first approach involves traversing the linked list twice, resulting in a time complexity of O(n), where n is the number of nodes in the linked list.
+The second approach involves traversing the linked list once to reverse it, then traversing it again to find the maximum sum, resulting in a time complexity of O(n).
+
+Space complexity:
+The first approach uses a dictionary to store values from the first half of the linked list, resulting in a space complexity of O(n/2) = O(n).
+The second approach only uses a constant amount of extra space for pointers and variables, resulting in a space complexity of O(1).
+Overall, the second approach is more efficient in terms of both time and space complexity, as it avoids the need for additional data structures like dictionaries.
+
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def pairSum(self, head: Optional[ListNode]) -> int:
+        # With space complexity as O(N/2) = O(N)
+        # Approach 1
+        '''temp_dic = dict()
+        n = 0
+        slow, fast = head, head
+        while fast and fast.next:
+            slow = slow.next
+            n+=1
+            fast = fast.next.next
+        n*=2
+        temp = head
+        i=0
+        while i < n//2:
+            temp_dic[n-1-i] = temp.val
+            i+=1
+            temp = temp.next
+        maxx = 0
+        while i in temp_dic and slow:
+            temp_dic[i] = temp_dic[i] + slow.val
+            maxx = max(maxx, temp_dic[i])
+            i+=1
+            slow = slow.next
+        return maxx '''
+
+        # Reverse the linked list from beginning till half of LL
+        # Approach 2
+        slow,fast = head,head
+        prev = None
+        while fast and fast.next:
+            fast = fast.next.next
+            temp = slow.next
+            slow.next = prev
+            prev = slow
+            slow = temp
+        
+        res = 0
+        while prev and slow:
+            res = max(res, prev.val + slow.val)
+            prev = prev.next
+            slow = slow.next
+        return res
+```

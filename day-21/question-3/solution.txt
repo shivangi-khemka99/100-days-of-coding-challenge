@@ -1,0 +1,45 @@
+"Swapping Kth Node from Beginning and End of Linked List"
+
+Leetcode solution link: https://leetcode.com/problems/swapping-nodes-in-a-linked-list/solutions/4777579/swapping-kth-node-from-beginning-and-end-of-linked-list/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The intuition here is to find the kth node from the beginning and the kth node from the end of the linked list and swap their values.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize two pointers, l and r, both pointing to the dummy node initially.
+2. Move the r pointer k steps forward to find the kth node from the beginning.
+3. Store the kth node from the beginning in a temporary variable.
+4. Move both pointers simultaneously until r reaches the end of the list
+   At this point, l will be pointing to the kth node from the end.
+6. Swap the values of the kth node from the beginning and the kth node from the end.
+7. Return the modified linked list.
+
+# Complexity
+Time complexity: O(n), where n is the number of nodes in the linked list. We traverse the list twice: once to find the kth node from the beginning and once to find the kth node from the end.
+
+Space complexity: O(1), as we are using only a constant amount of extra space for pointers and variables.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def swapNodes(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        n = k
+        dummy = ListNode(0, head)
+        l, r = dummy, dummy
+        while n > 0:
+            r = r.next
+            n-=1
+        temp = r
+        while r:
+            l = l.next
+            r = r.next
+        l.val, temp.val = temp.val, l.val
+        return head
+```
