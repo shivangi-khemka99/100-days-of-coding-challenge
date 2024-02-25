@@ -1,0 +1,39 @@
+"Efficient Pairwise Node Swapping in Linked List"
+
+Leetcode solution link: https://leetcode.com/problems/swap-nodes-in-pairs/solutions/4782103/efficient-pairwise-node-swapping-in-linked-list/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires swapping pairs of nodes in a linked list. A straightforward approach involves iterating through the list and swapping pairs of adjacent nodes.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We create a dummy node to serve as the head of the modified linked list and initialize pointers prev, cur, tempA, and tempB. We traverse the list, swapping pairs of adjacent nodes by adjusting the next pointers accordingly.
+
+# Complexity
+Time complexity: O(n), where n is the number of nodes in the linked list. We traverse the entire list once.
+
+Space complexity: O(1), as we use only a constant amount of extra space for pointers.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(0,head)
+        cur = dummy.next 
+        prev = dummy
+        while cur and cur.next:
+            tempA = cur.next
+            tempB = cur.next.next
+            prev.next = tempA
+            tempA.next = cur
+            cur.next = tempB
+            prev = cur
+            cur = cur.next
+        return dummy.next
+```

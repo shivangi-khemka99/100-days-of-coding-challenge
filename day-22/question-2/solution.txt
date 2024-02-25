@@ -1,0 +1,40 @@
+"Efficient Cycle Detection for Finding Duplicate Number"
+
+Leetcode solution link: https://leetcode.com/problems/find-the-duplicate-number/solutions/4782062/efficient-cycle-detection-for-finding-duplicate-number/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem involves finding a duplicate number in an array. We can utilize Floyd's Tortoise and Hare (Cycle Detection) algorithm to solve this problem efficiently.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We initialize two pointers, slow and fast, both pointing to the first element of the array. We move the slow pointer one step at a time and the fast pointer two steps at a time until they meet. This indicates the presence of a cycle in the array.
+
+After detecting the cycle, we reset the slow pointer to the beginning of the array and keep the fast pointer where it is. Then we move both pointers one step at a time until they meet again. The point where they meet will be the duplicate number.
+
+# Complexity
+Time complexity: O(n), where n is the length of the input array nums. The algorithm iterates through the array to detect the cycle and find the duplicate.
+
+Space complexity: O(1), as we only use a constant amount of extra space for the slow and fast pointers.
+# Code
+```
+class Solution:
+    def findDuplicate(self, nums: List[int]) -> int:
+        slow, fast = 0, 0
+
+        while True:
+            slow = nums[slow]
+            fast = nums[nums[fast]]
+            if slow == fast:
+                break
+        
+        slow2 = 0
+
+        while True:
+            slow2= nums[slow2]
+            slow = nums[slow]
+            if slow == slow2:
+                break
+
+        return slow
+```
