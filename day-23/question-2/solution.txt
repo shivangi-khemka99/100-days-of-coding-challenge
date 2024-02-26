@@ -1,0 +1,52 @@
+"Optimized Right Rotation of Linked List"
+
+Leetcode solution link: https://leetcode.com/problems/rotate-list/solutions/4786712/optimized-right-rotation-of-linked-list/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem asks to rotate the linked list to the right by k places, where k is a non-negative integer. One approach to solve this is to first find the length of the linked list to determine the effective rotation. Then, we can traverse the list to the (n - k)th node, where n is the length of the list, and perform the rotation.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Traverse the linked list to find its length and locate the tail node.
+2. Calculate the effective rotation k = k % n to handle cases where k is greater than the length of the linked list.
+3. Traverse the list again to find the (n - k)th node.
+4. Break the list at the (n - k)th node, set the next of the (n - k)th node to None, and connect the tail node to the head to form a circular linked list.
+5. Update the head pointer to the (n - k + 1)th node, which becomes the new head of the rotated list.
+
+# Complexity
+Time complexity: O(n), where n is the number of nodes in the linked list. We traverse the list twice: once to find its length and once to find the (n - k)th node.
+
+Space complexity: O(1), as we only use a constant amount of extra space for storing pointers.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if not head:
+            return head
+
+        tail, n = head, 1
+        while tail.next:
+            tail = tail.next
+            n+=1
+        
+        k= k%n
+        if k==0:
+            return head
+        cur = head
+        for i in range(n-k-1):
+            cur = cur.next
+        
+        temp = cur.next
+        cur.next = None
+        tail.next = head
+        head = temp
+
+        return head
+```

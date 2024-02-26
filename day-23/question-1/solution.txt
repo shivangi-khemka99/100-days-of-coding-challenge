@@ -1,0 +1,41 @@
+"Partitioning a Linked List Around a Given Value"
+
+Leetcode solution link: https://leetcode.com/problems/partition-list/solutions/4786527/partitioning-a-linked-list-around-a-given-value/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires partitioning a linked list around a given value x, such that all nodes with values less than x come before nodes with values greater than or equal to x, while preserving the original order of elements.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+The approach here is to traverse the original linked list once, separating nodes into two separate lists: one for nodes with values less than x and another for nodes with values greater than or equal to x. We maintain two pointers ltail and rtail to keep track of the tails of these two lists. After traversing the original list, we link the tail of the list with values less than x to the head of the list with values greater than or equal to x, effectively partitioning the list as required.
+
+# Complexity
+Time complexity: O(n), where n is the number of nodes in the linked list. We traverse the entire list once.
+
+Space complexity: O(1), since we are not using any additional data structures in our solution.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
+        left, right = ListNode(), ListNode()
+        ltail, rtail = left, right
+        while head:
+            if head.val < x:
+                ltail.next = head
+                ltail = ltail.next
+            else:
+                rtail.next = head
+                rtail = rtail.next
+            head = head.next
+
+        ltail.next = right.next
+        rtail.next = None
+        return left.next
+```
