@@ -1,0 +1,50 @@
+"Insertion Sort for Singly Linked List"
+
+Leetcode solution link: https://leetcode.com/problems/insertion-sort-list/solutions/4791404/insertion-sort-for-singly-linked-list/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem asks to implement insertion sort on a linked list, where we start with an initially empty sorted part and keep inserting elements from the unsorted part into their correct position in the sorted part.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Create a dummy node to serve as the starting point of the sorted list.
+2. Traverse through the original list starting from the second node (cur = head.next) while keeping track of the previous node (prev).
+3. For each node cur, traverse through the sorted part of the list (start) starting from the beginning until finding the correct position for cur to be inserted.
+4. Insert cur into its correct position by adjusting the pointers accordingly.
+5. Repeat steps 2-4 until all nodes are processed.
+6. Return the next node of the dummy node, which is the head of the sorted list.
+
+# Complexity
+Time complexity: O(N^2) - In the worst case, when the input list is in reverse order, each node needs to be inserted into its correct position, resulting in quadratic time complexity.
+
+Space complexity: O(1) - We use only a constant amount of extra space for pointers and variables.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def insertionSortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head or not head.next:
+            return head
+        dummy = ListNode(0,head)
+        cur = head.next
+        head.next = None  # Break the original list after head
+        while cur:
+            prev = dummy
+            start = dummy.next
+            nxt = cur.next 
+            while start and start.val < cur.val:
+                prev = start
+                start = start.next
+            
+            cur.next = start
+            prev.next = cur
+            cur = nxt
+        return dummy.next
+```

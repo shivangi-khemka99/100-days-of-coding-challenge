@@ -1,0 +1,57 @@
+"Reversing a Sublist in a Singly Linked List"
+
+Leetcode solution link: https://leetcode.com/problems/reverse-linked-list-ii/solutions/4790951/reversing-a-sublist-in-a-singly-linked-list/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires reversing a portion of a singly-linked list between two given positions left and right. One intuitive approach is to traverse the list until the left position, reverse the sublist, and then connect the reversed sublist back to the original list.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Create a dummy node and set its next pointer to the head of the original list. This dummy node helps handle cases where the reversal starts from the beginning of the list.
+2. Traverse the list until reaching the node before the left position. This will be the prev pointer.
+3. Traverse from the prev node and keep track of the cur node until reaching the left position. Also, keep track of the left node.
+4. Reverse the sublist from left to right.
+5. Reconnect the pointers: the prev node should point to the last node of the reversed sublist, and the left node should point to the node after the reversed sublist.
+6. Return the next of the dummy node, which is the head of the modified list.
+
+# Complexity
+Time complexity: O(n), where n is the number of nodes in the linked list. We traverse the list twice, once to reach the left position and once to reverse the sublist.
+
+Space complexity: O(1) - We use only a constant amount of extra space for pointers and variables.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+        if not head or left==right:
+            return head
+        
+        dummy = ListNode(0,head)
+        prev,cur = dummy,head
+
+        LeftNode, RightNode = ListNode(), ListNode()
+
+        for i in range(left-1):
+            prev,cur=cur,cur.next
+        
+        LeftNode = cur
+        pre=None
+
+        for i in range(right-left+1):
+            temp = cur.next
+            cur.next=pre
+            pre=cur
+            cur=temp
+
+        RightNode=pre
+        prev.next=RightNode
+        LeftNode.next=cur
+
+        return dummy.next
+```

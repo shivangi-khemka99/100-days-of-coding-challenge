@@ -1,0 +1,55 @@
+"Splitting a Linked List into K Parts"
+
+Leetcode solution link: https://leetcode.com/problems/split-linked-list-in-parts/solutions/4791126/splitting-a-linked-list-into-k-parts/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires splitting a linked list into k parts, with each part having approximately the same number of elements. If the number of nodes in the list is not evenly divisible by k, then some parts will have one more node than others.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Traverse the linked list once to find its length.
+2. Calculate the base length of each part by dividing the total length by k, and calculate the remainder of division.
+3. Initialize a result list to store the heads of the split lists.
+4. Traverse the list k times:
+    a. Append the current node to the result list.
+    b. Move base_length - 1 steps forward, or base_length steps if there is a remainder, to ensure the correct size of each part.
+    c. If there's a remainder, decrement it.
+    d. Update the current node.
+5. Return the result list containing the heads of the split lists.
+
+Time complexity: O(n+k), where n is the number of nodes in the linked list. We traverse the list once to find its length, and then iterate k times to split the list.
+
+Space complexity: O(k) - We store the heads of the split lists in the result list.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def splitListToParts(self, head: Optional[ListNode], k: int) -> List[Optional[ListNode]]:
+        length,cur = 0,head
+
+        while cur:
+            cur=cur.next
+            length+=1
+        
+        base_length , remainder = length//k , length%k
+        res = []
+        cur = head
+
+        for i in range(k):
+            res.append(cur)
+
+            for j in range(base_length - 1 + (1 if remainder else 0)):
+                if not cur: break
+                cur=cur.next
+            remainder-= (1 if remainder else 0)
+            if cur:
+                cur.next,cur=None,cur.next
+
+        return res
+```
