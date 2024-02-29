@@ -1,0 +1,38 @@
+"Efficient Conversion of Binary Linked List to Decimal Value"
+
+Leetcode solution link: https://leetcode.com/problems/convert-binary-number-in-a-linked-list-to-integer/solutions/4801375/efficient-conversion-of-binary-linked-list-to-decimal-value/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To convert the binary linked list to its decimal representation, we traverse the linked list from the most significant bit (head) to the least significant bit (tail), accumulating the decimal value as we go.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize the decimal value decimal to 0.
+2. Start traversing the linked list from the head.
+3. At each node, left-shift the current value of decimal by 1 (multiply by 2) and add the value of the current node.
+4. Repeat step 3 until reaching the end of the linked list.
+5. Return the final decimal value.
+
+# Complexity
+Time complexity: O(n), where n is the number of nodes in the linked list. We traverse the entire linked list once.
+
+Space complexity: O(1), as we use a constant amount of extra space for variables.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+
+class Solution:
+    def getDecimalValue(self, head: ListNode) -> int:
+        decimal = 0
+        current = head
+        while current:
+            decimal = decimal * 2 + current.val
+            current = current.next
+        return decimal
+```

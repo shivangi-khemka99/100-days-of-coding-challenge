@@ -1,0 +1,45 @@
+"Efficient Removal of Duplicates from Sorted Linked List"
+
+Leetcode solution link: https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/solutions/4801532/efficient-removal-of-duplicates-from-sorted-linked-list/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+While traversing the sorted linked list, keep track of the previous node and the current node. If the current node has duplicates, skip them until finding a distinct node. Adjust the pointers accordingly to remove duplicates.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize a dummy node to handle cases where the head itself needs to be removed.
+2. Initialize pointers prev and current to manage the traversal.
+3. Traverse the list:
+   a. Check if the current node has duplicates.
+   b. If duplicates are found, skip them by updating the pointers.
+   c. If no duplicates are found, link the previous node to the current distinct node.
+4. Return the next node of the dummy node, which is the head of the resulting list.
+
+# Complexity
+Time complexity: O(n), where n is the number of nodes in the linked list. We traverse the list once.
+
+Space complexity: O(1), as we use only a constant amount of extra space for pointers and variables.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+
+        dummy = ListNode(0,head)
+        prev,cur = dummy,dummy.next
+        while cur:
+            if cur.next and cur.val == cur.next.val:
+                while cur.next and cur.val == cur.next.val:
+                    cur=cur.next
+                prev.next = cur.next
+            else:
+                prev = prev.next
+            cur = cur.next
+        return dummy.next
+```

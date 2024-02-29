@@ -1,0 +1,37 @@
+"Efficient Deletion of Node in a Linked List without Head Access"
+
+Leetcode solution link: https://leetcode.com/problems/delete-node-in-a-linked-list/solutions/4801925/efficient-deletion-of-node-in-a-linked-list-without-head-access/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To delete a node without having access to the head of the linked list, we copy the value of the next node to the node to be deleted and then remove the next node instead.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Copy the value of the next node to the given node.
+2. Update the next pointer of the given node to skip the next node.
+3. Remove the next node from the list by directly modifying the pointers.
+4. The list now contains one less node, and the values before and after the given node remain unchanged.
+
+# Complexity
+Time complexity: O(1) - Constant time complexity, as we only perform a few pointer operations to achieve the deletion.
+
+Space complexity: O(1) - We use only a constant amount of extra space for variables.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def deleteNode(self, node):
+        """
+        :type node: ListNode
+        :rtype: void Do not return anything, modify node in-place instead.
+        """
+        node.val = node.next.val
+        node.next = node.next.next
+```
