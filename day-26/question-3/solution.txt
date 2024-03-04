@@ -1,0 +1,52 @@
+"Optimized Merge Nodes Between Zeros"
+
+Leetcode solution link: https://leetcode.com/problems/merge-nodes-in-between-zeros/solutions/4821900/optimized-merge-nodes-between-zeros/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To solve this problem, we can iterate through the linked list and merge nodes between consecutive zeros. We will keep track of the sum of values of nodes between zeros and create a new node with this sum.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize a dummy node res_head to store the result.
+2. Iterate through the linked list.
+3. Whenever we encounter a non-zero value, we calculate the sum of values of nodes until we encounter a zero.
+4. Create a new node with the calculated sum and append it to the result list.
+5. Continue this process until we reach the end of the linked list.
+6. Return the head of the result list.
+
+# Complexity
+Time complexity: O(n), where n is the number of nodes in the linked list. We iterate through the list once.
+
+Space complexity: O(1), as we are not using any additional data structures of size proportional to the input.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head or not head.next:
+            return head
+
+        res_head = ListNode()
+        res = res_head
+
+        while head and head.next:
+            if head.val == 0:
+                head = head.next
+                continue
+
+            summ = 0
+            while head and head.val != 0:
+                summ += head.val
+                head = head.next
+
+            res.next = ListNode(summ)
+            res = res.next
+
+        return res_head.next
+```

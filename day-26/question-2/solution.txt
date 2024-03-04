@@ -1,0 +1,38 @@
+"Removing Middle Node from a Singly Linked List"
+
+Leetcode solution link: https://leetcode.com/problems/delete-the-middle-node-of-a-linked-list/solutions/4821810/removing-middle-node-from-a-singly-linked-list/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem involves deleting the middle node of a singly-linked list.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+To solve this problem, we'll use the two-pointer technique. We'll have two pointers, one moving at half the speed of the other. When the faster pointer reaches the end, the slower pointer will be at the middle. Then, we'll remove the middle node.
+
+# Complexity
+Time complexity: O(n), where n is the number of nodes in the linked list. We traverse the list once.
+
+Space complexity: O(1), as we are using constant extra space.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def deleteMiddle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head.next:
+            return head.next
+
+        slow,fast = head,head.next.next
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        slow.next = slow.next.next
+        return head
+```

@@ -1,0 +1,42 @@
+"Reorganizing Odd and Even-indexed Nodes in a Singly Linked List"
+
+Leetcode solution link: https://leetcode.com/problems/odd-even-linked-list/solutions/4821672/reorganizing-odd-and-even-indexed-nodes-in-a-singly-linked-list/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires reorganizing a singly-linked list such that all nodes with odd indices appear before nodes with even indices.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We can achieve this by maintaining two pointers: one for odd nodes and one for even nodes. We'll iterate through the list, moving odd-indexed nodes to the front and even-indexed nodes to the back.
+
+# Complexity
+Time complexity: O(n), where n is the number of nodes in the linked list. We traverse the list once.
+
+Space complexity: O(1), as we are using constant extra space.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head or not head.next:
+            return head
+        
+        odd_head,even_head = head,head.next
+        odd,even = odd_head,even_head
+
+        while even and even.next:
+            odd.next = even.next
+            odd = odd.next
+            even.next = odd.next
+            even = even.next
+        
+        odd.next = even_head
+
+        return odd_head
+```
