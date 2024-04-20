@@ -1,0 +1,57 @@
+"Reverse and Remove Nodes: Optimal Solution with Linked List Reversal"
+
+Leetcode solution link: https://leetcode.com/problems/remove-nodes-from-linked-list/solutions/5051263/reverse-and-remove-nodes-optimal-solution-with-linked-list-reversal/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+We can solve this problem by first reversing the linked list. Once the list is reversed, we can iterate through it and keep track of the minimum value encountered so far. We remove nodes whose value is less than the minimum value. Finally, we reverse the modified list back to its original order.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Define a helper function reverseList to reverse the linked list.
+2. Reverse the input linked list.
+3. Initialize a dummy node to simplify the logic. Set it as the head of the reversed list.
+4. Traverse the reversed list, keeping track of the minimum value encountered.
+5. Remove nodes whose value is less than the minimum value.
+6. Reverse the modified list back to its original order.
+7. Return the modified list.
+
+# Complexity
+Time complexity: O(n), where n is the number of nodes in the linked list. We traverse the list twice, once for reversing and once for removal.
+
+Space complexity: O(1), as we use only a constant amount of extra space for pointers and variables.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseList(self, head):
+        dummy = ListNode(0,head)
+        prev, temp = dummy, head
+
+        while temp:
+            nxt = temp.next
+            temp.next = prev
+            prev = temp
+            temp = nxt
+        dummy.next.next = None
+        return prev
+
+    def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        reversed_list_head = self.reverseList(head)
+        dummy = ListNode(0, reversed_list_head)
+        minn = reversed_list_head.val
+        prev,temp = dummy,reversed_list_head
+        while temp:
+            if temp.val < minn :
+                prev.next = temp.next
+            else:
+                minn = temp.val
+                prev = temp
+            temp = temp.next
+        return self.reverseList(dummy.next)
+```

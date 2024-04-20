@@ -1,0 +1,55 @@
+"Reordering a Singly-Linked List: Middle Split and Merge Technique"
+
+Leetcode solution link: https://leetcode.com/problems/reorder-list/solutions/5032581/reordering-a-singly-linked-list-middle-split-and-merge-technique/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To reorder a singly-linked list, we need to reverse the second half of the list and then merge it with the first half.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. We first find the middle of the list using the slow and fast pointer technique.
+2. Then, we reverse the second half of the list.
+3. Finally, we merge the first half and the reversed second half by interweaving their nodes.
+
+# Complexity
+Time complexity: O(n), where n is the number of nodes in the list. We traverse the list twice: once to find the middle and once to reverse the second half.
+Space complexity: O(1), as we only use a constant amount of extra space for pointers and variables.
+
+# Code
+```
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        """
+        Do not return anything, modify head in-place instead.
+        """
+        if not head or not head.next:
+            return
+
+        # Find the middle of the list
+        dummy = ListNode(0, head)
+        slow, fast = dummy, dummy
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        # Reverse the second half of the list
+        prev = None
+        temp = slow.next
+        slow.next = None
+        while temp:
+            next_temp = temp.next
+            temp.next = prev
+            prev = temp
+            temp = next_temp
+
+        # Merge the first half and the reversed second half
+        first_half, second_half = head, prev
+        while second_half:
+            next_first = first_half.next
+            next_second = second_half.next
+            first_half.next = second_half
+            second_half.next = next_first
+            first_half = next_first
+            second_half = next_second
+```

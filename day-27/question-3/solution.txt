@@ -1,0 +1,46 @@
+"Merging Linked Lists Between Indices: Efficient Solution"
+
+Leetcode solution link: https://leetcode.com/problems/merge-in-between-linked-lists/solutions/5051327/merging-linked-lists-between-indices-efficient-solution/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+We need to merge list2 into list1 between indices a and b.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Traverse list2 to find its last node.
+2. Traverse list1 to find the nodes before index a and after index b.
+3. Link the last node of list2 to the node after index b in list1.
+4. Link the node before index a in list1 to the head of list2.
+4. Return the modified list1.
+
+# Complexity
+Time complexity: O(m+n), where m is the length of list2 and n is the length of list1.
+
+Space complexity: O(1), as we use only a constant amount of extra space for variables.
+
+# Code
+```
+class Solution:
+    def mergeInBetween(self, list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode:
+        list2_tail = list2
+        while list2_tail.next:
+            list2_tail = list2_tail.next
+        list2_last_node = list2_tail
+
+        node_before_a, node_after_b = None, None
+        index, current_node = 0, list1
+        while current_node:
+            if index == a - 1:
+                node_before_a = current_node
+            if index == b:
+                node_after_b = current_node.next
+                break
+            index += 1
+            current_node = current_node.next
+
+        node_before_a.next = list2
+        list2_last_node.next = node_after_b
+
+        return list1
+```
