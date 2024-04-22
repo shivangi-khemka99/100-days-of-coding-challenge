@@ -1,0 +1,52 @@
+"Linked List Cycle II Solution: Floyd's Tortoise and Hare Algorithm"
+
+Leetcode solution link: https://leetcode.com/problems/linked-list-cycle-ii/solutions/5059757/linked-list-cycle-ii-solution-floyd-s-tortoise-and-hare-algorithm/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To solve this problem, we can use Floyd's Tortoise and Hare algorithm, also known as the "Floyd's Cycle Detection Algorithm." This algorithm utilizes two pointers, slow and fast, to detect the presence of a cycle in a linked list and find the node where the cycle begins.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize both slow and fast pointers at the head of the linked list.
+2. Move the pointers at different speeds: slow moves one step at a time, while fast moves two steps at a time.
+3. If there is a cycle, the two pointers will meet at some point within the cycle.
+4. Once the first meeting point is detected, move one pointer back to the head of the list.
+5. Move both pointers at the same pace until they meet again. The point where they meet again is the start of the cycle.
+
+# Complexity
+Time complexity: O(N), where N is the number of nodes in the linked list. The algorithm requires traversing the linked list once to detect the cycle and find the start of the cycle.
+
+Space complexity: O(1), as the algorithm only uses a constant amount of extra space for two pointers, regardless of the size of the input linked list.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def detectCycle(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        slow, fast = head, head
+
+        # Find the intersection point of the two pointers
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+            if slow == fast:
+                break
+        else:
+            return None  # No cycle
+
+        # Move one pointer back to the head
+        slow = head
+
+        # Move both pointers at the same pace until they meet again
+        while slow != fast:
+            slow = slow.next
+            fast = fast.next
+
+        return slow  # Return the node where the cycle begins
+```

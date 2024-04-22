@@ -1,0 +1,66 @@
+"Reversing Linked List in Groups of K Nodes"
+
+Leetcode solution link: https://leetcode.com/problems/reverse-nodes-in-k-group/solutions/5055941/reversing-linked-list-in-groups-of-k-nodes/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires reversing a linked list in groups of size k. One intuitive approach is to break down the problem into smaller steps:
+
+1. Iterate through the linked list in groups of size k.
+2. Reverse each group.
+3. Connect the reversed groups together.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+To implement the above intuition, we can follow these steps:
+
+1. Initialize a dummy node to handle cases where the entire list is reversed.
+2. Iterate through the linked list, processing each group of size k.
+3. Within each group, reverse the sublist.
+4. Connect the reversed sublist to the previous group or the dummy node.
+5. Update pointers accordingly.
+6. Return the head of the modified linked list.
+
+# Complexity
+Time complexity: O(n), where n is the number of nodes in the linked list. We visit each node once.
+
+Space complexity: O(1), as we use a constant amount of extra space for variables regardless of the size of the input.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        dummy = ListNode(0,head)
+        prev = dummy
+        while prev and prev.next:
+            new_head, last_node, next_head = self.reverseList(prev.next,k)
+            prev.next = new_head
+            if last_node: last_node.next = next_head
+            prev = last_node
+        return dummy.next
+
+    def reverseList(self, head, k):
+        dummy = ListNode(0,head)
+        pre,temp,i = dummy, head,k
+        while temp and i > 0: #Check if k nodes are there
+            pre = temp
+            temp=temp.next
+            i-=1
+        if i == 0 : # if k nodes are there then reverse the linkedlist
+            cur,prev = head,dummy
+            while cur and k > 0:
+                nxt = cur.next
+                cur.next = prev
+                prev = cur
+                cur = nxt
+                k-=1
+            dummy.next = None
+            return prev,head,cur
+        else:
+            return head, pre, temp
+```
