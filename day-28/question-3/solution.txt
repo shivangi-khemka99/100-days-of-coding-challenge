@@ -1,0 +1,47 @@
+"Smart Sum: Ingenious Linked List Addition Technique"
+
+Leetcode solution link: https://leetcode.com/problems/add-two-numbers-ii/solutions/5063855/smart-sum-ingenious-linked-list-addition-technique/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+This problem involves adding two numbers represented by linked lists. One intuitive approach is to traverse both linked lists simultaneously, adding corresponding digits and keeping track of any carry-over.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Traverse both linked lists simultaneously.
+2. At each step, add the corresponding digits along with any carry-over from the previous step.
+3. Create a new linked list to store the result digits.
+4. Return the resulting linked list.
+
+# Complexity
+Time complexity: O(max(n,m)), where n and m are the lengths of the two input linked lists.
+
+Space complexity: O(max(n,m)), for storing the result linked list.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        num1,num2 = 0,0
+
+        while l1:
+            num1=num1*10 + l1.val
+            l1=l1.next
+        while l2:
+            num2=num2*10 + l2.val
+            l2=l2.next
+
+        summ = str(num1+num2)
+        dummy = ListNode(0)
+        cur = dummy
+        for i in summ:
+            cur.next = ListNode(i)
+            cur = cur.next
+
+        return dummy.next
+```
