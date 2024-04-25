@@ -1,0 +1,30 @@
+"Efficient Solution for Removing Preceding Characters After '*' in a String"
+
+Leetcode solution link: https://leetcode.com/problems/removing-stars-from-a-string/solutions/5072239/efficient-solution-for-removing-preceding-characters-after-in-a-string/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The intuition behind this problem is to use a stack to process the characters in the input string. When encountering a '*', we need to check if the stack is non-empty and pop the top element if it is, simulating the removal of the preceding character.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We use a stack to keep track of characters while iterating through the input string. If we encounter a '*', we check if the stack is non-empty. If it is, we pop the top element from the stack, effectively removing the preceding character. Otherwise, we simply append the current character to the stack. Finally, we join the characters in the stack to form the resulting string.
+
+# Complexity
+Time complexity: O(n), where n is the length of the input string s. We iterate through each character in the string once.
+
+Space complexity: O(n), where n is the length of the input string s. The space used by the stack can be at most the same as the length of the input string, in the case where no characters are removed.
+
+
+# Code
+```
+class Solution:
+    def removeStars(self, s: str) -> str:
+        stack = []
+        for i in s:
+            if i == '*' and stack:
+                stack.pop()
+            else:
+                stack.append(i)
+        return ''.join(stack)
+```

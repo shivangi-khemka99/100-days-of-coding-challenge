@@ -1,0 +1,51 @@
+"Efficient Merge of k Sorted Linked Lists without Extra Memory"
+
+Leetcode solution link: https://leetcode.com/problems/merge-k-sorted-lists/solutions/5068159/efficient-merge-of-k-sorted-linked-lists-without-extra-memory/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The initial thought process revolves around leveraging the sorted nature of the input linked lists to efficiently merge them into a single sorted linked list.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+The approach utilizes a divide-and-conquer strategy, where pairs of linked lists are merged iteratively until only one remains. This is achieved by repeatedly merging adjacent lists while maintaining the sorted order.
+
+# Complexity
+Time complexity: O(N log k), where N is the total number of elements in all the linked lists, and k is the number of linked lists. This complexity arises from the iterative merging process, where each iteration compares and merges elements from the lists.
+
+Space complexity: O(1), as the solution utilizes a constant amount of extra space, primarily for pointers and variables, regardless of the input size.
+
+# Code
+```
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
+        if len(lists) == 1:
+            return lists[0]
+        if len(lists) == 0:
+            return
+
+        final_list = lists[0]
+
+        for i in range(1,len(lists)):
+            final_list = self.sortLists(final_list, lists[i])
+        return final_list
+
+    def sortLists(self,l1,l2):
+        new = dummy = ListNode()
+
+        while l1 and l2:
+            if l1.val <= l2.val:
+                new.next = l1
+                l1 = l1.next
+            else:
+                new.next = l2
+                l2 = l2.next
+            new = new.next
+        new.next = l1 or l2
+        return dummy.next
+```
