@@ -1,0 +1,36 @@
+"Efficient Asteroid Collision Resolution using Stack Simulation"
+
+Leetcode solution link: https://leetcode.com/problems/asteroid-collision/solutions/5080567/efficient-asteroid-collision-resolution-using-stack-simulation/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem seems to be about simulating the collision of asteroids moving in a straight line. When two asteroids collide, if one is larger than the other, the smaller one explodes, and if they are of equal size, both explode.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+To tackle this problem, I'll utilize a stack to simulate the collisions. As I iterate through the asteroids, I'll check if the current asteroid collides with the asteroid at the top of the stack. If they collide, I'll handle the collision based on their sizes. If the top asteroid explodes, I'll pop it from the stack. Otherwise, if the current asteroid explodes, I'll set it to zero. If neither explodes, I'll continue iterating. At the end, the stack will contain the remaining asteroids that haven't collided.
+
+# Complexity
+Time complexity: O(n), where n is the number of asteroids.
+
+Space complexity: O(n), where n is the number of asteroids.
+
+# Code
+```
+class Solution:
+    def asteroidCollision(self, asteroids: List[int]) -> List[int]:
+        stack = []
+        for a in asteroids:
+            while stack and (stack[-1] > 0 and a < 0):
+                diff = a + stack[-1]
+                if diff < 0:
+                    stack.pop()
+                elif diff > 0:
+                    a = 0
+                else:
+                    stack.pop()
+                    a = 0
+            if a:
+                stack.append(a)
+        return stack
+```

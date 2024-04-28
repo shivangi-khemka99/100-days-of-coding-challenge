@@ -1,0 +1,42 @@
+"Efficient Python Solution for Generating Valid Parentheses Combinations using Backtracking"
+
+Leetcode solution link: https://leetcode.com/problems/generate-parentheses/solutions/5084201/efficient-python-solution-for-generating-valid-parentheses-combinations-using-backtracking/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+This problem seems like a classic application of backtracking, where we need to generate all possible combinations of well-formed parentheses. The idea is to add opening parentheses as long as the count of opening parentheses is less than n, and add closing parentheses as long as the count of closing parentheses is less than the count of opening parentheses.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We can use a recursive backtracking approach to generate these combinations. We'll maintain counts of opening and closing parentheses, and we'll add them to our stack as long as the conditions allow. Once we reach a state where both counts are equal to n, we'll add the current combination to our result.
+
+# Complexity
+Time complexity: O((4n) / n ^ (1/2)) - Each valid sequence has at most 2n characters, and we have 2n such sequences.
+
+Space complexity: O(n) - The space used by the stack and the recursive call stack.
+
+# Code
+```
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        stack = []
+        res = []
+
+        def backtrack(openN, closeN):
+            if openN == closeN == n:
+                res.append("".join(stack))
+                return 
+            
+            if openN < n:
+                stack.append("(")
+                backtrack(openN+1, closeN)
+                stack.pop()
+            
+            if closeN < openN:
+                stack.append(")")
+                backtrack(openN, closeN+1)
+                stack.pop()
+
+        backtrack(0,0)
+        return res
+```
