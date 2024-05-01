@@ -1,0 +1,35 @@
+"Next Warmer Temperature Finder: Optimal Stack-Based Solution"
+
+Leetcode solution link: https://leetcode.com/problems/daily-temperatures/solutions/5088997/next-warmer-temperature-finder-optimal-stack-based-solution/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To solve this problem, we can utilize a stack to keep track of the indices of temperatures that we haven't found the next warmer temperature for yet. We iterate through the temperatures array and for each temperature, we check if it's warmer than the temperatures stored at the indices in the stack. If it is, we update the result array with the time it took to reach this warmer temperature and pop the corresponding index from the stack. We continue this process until we find a temperature that's colder or until the stack becomes empty.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize an array res to store the result, initially filled with zeros.
+2. Initialize an empty stack to store temperatures and their indices.
+3. Iterate through the temperatures array.
+4. For each temperature, while the stack is not empty and the current temperature is greater than the temperature at the top of the stack, update the result at the index stored in the stack with the difference in indices (indicating the number of days until a warmer temperature) and pop the stack.
+5. Append the current temperature and its index to the stack.
+6. Return the result array.
+
+# Complexity
+Time complexity: O(n), where n is the number of temperatures in the input array. We traverse the temperatures array once.
+
+Space complexity: O(n), where n is the number of temperatures in the input array. The stack can potentially store all the temperatures in the worst-case scenario where temperatures are in non-decreasing order.
+
+# Code
+```
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        res = [0] * len(temperatures)
+        stack = []
+        for i in range(len(temperatures)):
+            while stack and stack[-1][0] < temperatures[i]:
+                res[stack[-1][1]] = i - stack[-1][1]
+                stack.pop()
+            stack.append([temperatures[i],i])
+        return res
+```

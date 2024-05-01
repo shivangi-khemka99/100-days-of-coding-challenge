@@ -1,0 +1,47 @@
+"Efficient Prefix Reversal Algorithm for Strings with Python in One Line!"
+
+Leetcode solution link: https://leetcode.com/problems/reverse-prefix-of-word/solutions/5097057/efficient-prefix-reversal-algorithm-for-strings-with-python-in-one-line/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem can be solved by reversing the prefix of the word up to the specified character.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Find the index of the specified character ch in the word using the find() method.
+2. Extract the substring from the beginning of the word up to (including) the index found in step 1.
+3. Reverse the substring obtained in step 2.
+4. Concatenate the reversed substring with the remaining part of the word (after the index of the specified character).
+
+# Complexity
+- Time complexity: O(N)
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: O(N)
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+# Code
+```
+class Solution:
+    def reversePrefix(self, word: str, ch: str) -> str:
+        return word[:word.find(ch)+1][::-1] + word[word.find(ch)+1:]
+
+#2 pointer appraoch with space complexity O(1)
+class Solution:
+    def reversePrefix(self, word: str, ch: str) -> str:
+        index = word.find(ch)
+        if index == -1:
+            return word
+        
+        # Two-pointer approach to reverse the prefix in-place
+        left, right = 0, index
+        while left < right:
+            word_list = list(word)
+            word_list[left], word_list[right] = word_list[right], word_list[left]
+            word = ''.join(word_list)
+            left += 1
+            right -= 1
+        
+        return word
+        
+```

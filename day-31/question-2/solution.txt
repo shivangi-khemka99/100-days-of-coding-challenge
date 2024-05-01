@@ -1,0 +1,31 @@
+"Simplified Canonical Path Solution using Stack"
+
+Leetcode solution link: https://leetcode.com/problems/simplify-path/solutions/5092195/simplified-canonical-path-solution-using-stack/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires transforming a given absolute path into its simplified canonical form. To achieve this, we can use a stack to keep track of the directories as we traverse the path.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We'll split the given path by '/' character and process each directory one by one. When encountering '..', we'll pop the last directory from the stack if it's not empty. We'll skip empty strings and '.' directories. Finally, we'll join the directories in the stack with '/' to form the simplified canonical path.
+
+# Complexity
+Time complexity: O(n), where n is the length of the input path.
+
+Space complexity: O(n), where n is the number of directories in the simplified canonical path.
+
+# Code
+```
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        stack = []
+        for directory in path.split('/'):
+            if directory == '..':
+                if stack:
+                    stack.pop()
+            elif directory and directory != '.':
+                stack.append(directory)
+        print(stack)
+        return '/' + '/'.join(stack)
+```
