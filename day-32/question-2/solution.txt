@@ -1,0 +1,42 @@
+"Max Positive Integer Pairing using two pointers with Time complexity-O(N) and Space complexity-O(1)"
+
+Leetcode solution link: https://leetcode.com/problems/largest-positive-integer-that-exists-with-its-negative/solutions/5100996/max-positive-integer-pairing-using-two-pointers-with-time-complexity-o-n-and-space-complexity-o-1/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+We start by rearranging the positive and negative numbers in the array so that positive numbers are on the left and negative numbers are on the right. Then, we iterate through the left part of the array to find the largest positive integer k such that its negative counterpart exists in the right part of the array.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize variables left and right to partition the array into positive and negative numbers.
+2. Iterate through the array while left is less than right.
+3. Swap elements if the left element is positive and the right element is negative, and adjust left and right pointers accordingly.
+4. Iterate through the left part of the array to find the largest positive integer k such that its negative counterpart exists in the right part.
+5. Return the maximum positive integer k found.
+
+# Complexity
+Time complexity: O(n), where n is the length of the input array nums. We iterate through the array twice, once for partitioning and once for finding the maximum positive integer.
+
+Space complexity: O(1), as we only use a constant amount of extra space for variables.
+
+# Code
+```
+class Solution:
+    def findMaxK(self, nums: List[int]) -> int:
+        n,max_k = len(nums), -1
+        left, right = 0, n - 1
+        while left < right:
+            if nums[left] > 0 and nums[right] < 0:
+                nums[left], nums[right] = nums[right], nums[left]
+                left += 1
+                right -= 1
+            while left < right and nums[left] < 0:
+                left += 1
+            while left < right and nums[right] > 0:
+                right -= 1
+        if nums[left]<0: left+=1
+        for i in range(left):
+            if -nums[i] in nums[left:]:
+                max_k = max(max_k, abs(nums[i]))
+        return max_k
+```

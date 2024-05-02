@@ -1,0 +1,36 @@
+"Stack-Based Decoding: Unraveling Encoded Strings in Python"
+
+Leetcode solution link: https://leetcode.com/problems/decode-string/solutions/5097263/stack-based-decoding-unraveling-encoded-strings-in-python/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem seems to involve decoding a string that follows a specific pattern. We need to handle repetitions of substrings enclosed within square brackets.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We can use a stack to keep track of characters as we iterate through the input string. Whenever we encounter a closing bracket ']', we pop characters from the stack until we find the corresponding opening bracket '['. We then decode the substring between these brackets, multiply it by the preceding integer (if any), and push the decoded substring back onto the stack. We repeat this process until we traverse the entire string.
+
+# Complexity
+Time complexity: O(n), where n is the length of the input string s. We traverse the entire string once.
+
+Space complexity: O(n), where n is the length of the input string. We use a stack to store characters, which can grow up to the length of the input string in the worst case.
+
+# Code
+```
+class Solution:
+    def decodeString(self, s: str) -> str:
+        stack = []
+        for char in s:
+            if char == "]":
+                decoded_string = ""
+                while stack[-1] != "[":
+                    decoded_string = stack.pop() + decoded_string
+                stack.pop()  # Pop the '['
+                k = ""
+                while stack and stack[-1].isdigit():
+                    k = stack.pop() + k
+                stack.append(int(k) * decoded_string)
+            else:
+                stack.append(char)
+        return "".join(stack)
+```

@@ -1,0 +1,37 @@
+"Efficient Stack-based Solution for Removing K Digits"
+
+Leetcode solution title: https://leetcode.com/problems/remove-k-digits/solutions/5102721/efficient-stack-based-solution-for-removing-k-digits/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem appears to involve removing k digits from a given number to form the smallest possible number. We can intuitively approach this by utilizing a stack data structure to efficiently remove digits while maintaining the order of the remaining digits.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize an empty stack to store the digits of the resulting number.
+2. Iterate through each digit in the given number.
+3. For each digit, while the stack is not empty, the remaining k is greater than 0, and the current digit is less than the digit at the top of the stack, pop elements from the stack and decrement k.
+4. After iterating through all digits, if there are remaining digits to be removed (k > 0), remove them from the end of the stack.
+5. Convert the resulting stack into a string and return it as the smallest possible number.
+
+# Complexity
+Time complexity: O(n), where n is the number of digits in the given number. We iterate through each digit once.
+
+Space complexity: O(n), where n is the number of digits in the given number. The stack can store at most n digits.
+
+# Code
+```
+import sys
+sys.set_int_max_str_digits(100000)
+class Solution:
+    def removeKdigits(self, num: str, k: int) -> str:
+        stack = []
+        for nums in num:
+            while stack and k>0 and nums<stack[-1]:
+                k-=1
+                stack.pop()
+            stack.append(nums)
+        stack = stack[:len(stack)-k]
+        res = "".join(stack)
+        return str(int(res)) if res else "0"
+```
