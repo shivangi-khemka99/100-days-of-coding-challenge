@@ -1,0 +1,31 @@
+Maximum Resulting Number After Removing a Digit easy solution
+
+Leetcode solution link: https://leetcode.com/problems/remove-digit-from-number-to-maximize-result/solutions/5107118/maximum-resulting-number-after-removing-a-digit-easy-solution/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To solve this problem, we need to find the maximum value after removing one occurrence of the given digit from the number. One approach is to iterate through the number, removing each occurrence of the digit, and storing the resulting numbers. Then, we return the maximum value among these resulting numbers.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize an empty list possible_values to store the resulting numbers after removing the digit.
+2. Iterate through the characters of the input number.
+3. If a character matches the given digit, remove it from the number and append the resulting number to possible_values.
+4. After iterating through all characters, if possible_values is not empty, return the maximum value from possible_values; otherwise, return the original number.
+
+
+# Complexity
+Time complexity: O(n), where n is the length of the input number. We iterate through the number once to find occurrences of the digit and construct resulting numbers.
+
+Space complexity: O(m), where m is the number of occurrences of the digit in the input number. In the worst case, all occurrences of the digit are removed, and thus, possible_values will contain m resulting numbers.
+
+# Code
+```
+class Solution:
+    def removeDigit(self, number: str, digit: str) -> str:
+        possible_values = []
+        for i in range(len(number)):
+            if number[i] == digit:
+                possible_values.append(number[:i]+number[i+1:])
+        return max(possible_values) if possible_values else number
+```
