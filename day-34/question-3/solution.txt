@@ -1,0 +1,32 @@
+"Finding 132 Pattern with Stack"
+
+Leetcode solution link: https://leetcode.com/problems/132-pattern/solutions/5112151/finding-132-pattern-with-stack/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem involves finding a specific pattern in an array. The pattern is defined as having an element nums[i] such that there exist nums[j] and nums[k] where i < j < k and nums[i] < nums[k] < nums[j]. A stack-based approach seems promising to track the potential candidates for the second and third elements of the pattern.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We iterate through the array, maintaining a stack of pairs [num, minLeft], where num is the current number and minLeft is the minimum number to the left of num. We start by setting curMin to the first element of the array. For each subsequent element num, we compare it with the elements in the stack. If num is greater than the top of the stack, we pop elements from the stack until we find an element stack[-1][0] such that num > stack[-1][0]. Then, we check if num is greater than the minimum number to its left, stack[-1][1]. If both conditions are met, we've found the 132 pattern, and we return True. Otherwise, we append [num, curMin] to the stack, updating curMin as the minimum between curMin and num. If we iterate through the entire array without finding the pattern, we return False.
+
+# Complexity
+Time complexity: O(n), where n is the length of the input array nums. We traverse the array once.
+
+Space complexity: O(n), where n is the length of the input array nums. The space used by the stack can be at most n.
+
+# Code
+```
+class Solution:
+    def find132pattern(self, nums: List[int]) -> bool:
+        stack = [] # pair [num, minLeft]
+        curMin = nums[0]
+        for num in nums[1:]:
+            while stack and num >= stack[-1][0]:
+                stack.pop()
+            if stack and num > stack[-1][1]:
+                return True
+            stack.append([num, curMin])
+            curMin = min(curMin,num)
+        return False
+```

@@ -1,0 +1,34 @@
+"Removing Consecutive Duplicates with Stack"
+
+Leetcode solution link: https://leetcode.com/problems/remove-all-adjacent-duplicates-in-string-ii/solutions/5112017/removing-consecutive-duplicates-with-stack/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem seems to involve removing consecutive duplicates from a string if they occur more than k times. A stack-based approach could be helpful here.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We can traverse the string character by character, maintaining a stack to keep track of consecutive characters and their counts. Whenever we encounter a character, if it's the same as the character at the top of the stack, we increment its count. Otherwise, we push a new entry onto the stack. If the count of the character at the top of the stack becomes k, we pop it from the stack. Finally, we construct the resulting string from the characters and their counts left in the stack.
+
+# Complexity
+Time complexity: O(n), where n is the length of the input string s. We traverse the string once.
+
+Space complexity: O(n), where n is the length of the input string s. The space used by the stack can be at most n, and the resulting string may also be of length n.
+
+# Code
+```
+class Solution:
+    def removeDuplicates(self, s: str, k: int) -> str:
+        stack = []
+        for char in s:
+            if stack and stack[-1][0] == char:
+                stack[-1][1] +=1
+            else:
+                stack.append([char, 1])
+            if stack and stack[-1][1] == k:
+                stack.pop()
+        ret = ""
+        for char,count in stack:
+            ret += (char * count)
+        return ret
+```

@@ -1,0 +1,32 @@
+"Optimal Solution for "Boats to Save People" Problem"
+
+Leetcode solution link: https://leetcode.com/problems/boats-to-save-people/solutions/5109831/optimal-solution-for-boats-to-save-people-problem/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To solve this problem optimally, we can utilize a greedy approach. We want to maximize the number of people carried on each boat while ensuring that the weight limit is not exceeded. Sorting the array of people by their weights allows us to efficiently implement this approach.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We start by sorting the array of people by their weights. Then, we initialize two pointers, left and right, pointing to the start and end of the sorted array, respectively. We iterate through the array from both ends simultaneously. At each step, we check if the sum of the weights of the people pointed by the left and right pointers is less than or equal to the limit. If it is, we increment the left pointer (indicating that the lighter person has boarded the boat) and decrement the right pointer (indicating that the heavier person has boarded the boat). If the sum exceeds the limit, we can only accommodate the heavier person onto the boat, so we only decrement the right pointer. In either case, we increment a counter to keep track of the number of boats loaded. Finally, we return the value of the counter, which represents the minimum number of boats needed to carry all the given people.
+
+# Complexity
+Time complexity: O(n * log n) due to the sorting operation, where n is the number of people. The linear iteration through the sorted array contributes to the overall linear time complexity.
+
+Space complexity: O(1) as we only use a constant amount of extra space for storing pointers and counters.
+
+# Code
+```
+class Solution:
+    def numRescueBoats(self, people: List[int], limit: int) -> int:
+        people.sort()
+        left, right = 0, len(people) - 1
+        boats = 0
+        while left <= right:
+            if people[left] + people[right] <= limit:
+                left += 1
+            right -= 1
+            boats += 1
+        return boats
+```
+
