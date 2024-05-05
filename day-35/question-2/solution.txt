@@ -1,0 +1,39 @@
+"Inorder Traversal Using Stack"
+
+Leetcode solution link: https://leetcode.com/problems/binary-tree-inorder-traversal/solutions/5117306/inorder-traversal-using-stack/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+This problem appears to involve traversing a binary tree in an inorder manner, i.e., visiting nodes in the order left, root, right.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+The provided solution uses an iterative approach with a stack. It starts from the root and traverses left until reaching a leaf node, pushing each node onto the stack. Once it reaches a leaf, it pops the node from the stack, appends its value to the result list, and moves to its right child if it exists. This process repeats until all nodes are visited.
+
+# Complexity
+Time complexity: The time complexity depends on the number of nodes in the binary tree. Since each node is visited once, the time complexity is O(n), where n is the number of nodes in the tree.
+
+Space complexity: The space complexity is also O(n) in the worst case, where n is the number of nodes. This is because the stack can hold up to n nodes if the tree is skewed.
+
+
+# Code
+```
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        stack,res = [],[]
+        cur = root
+        while cur or stack:
+            while cur:
+                stack.append(cur)
+                cur = cur.left
+            cur = stack.pop()
+            res.append(cur.val)
+            cur = cur.right
+        return res
+```

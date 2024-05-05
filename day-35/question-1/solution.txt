@@ -1,0 +1,38 @@
+"Heap-Based Stone Smashing Simulation"
+
+Leetcode solution link: https://leetcode.com/problems/last-stone-weight/solutions/5117230/heap-based-stone-smashing-simulation/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem seems to involve simulating the process of smashing stones together until there's only one stone left or none. We can use a heap data structure to efficiently find the two heaviest stones at each step and determine the result of their collision.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Convert the list of stone weights into negative values so that we can use a min heap. We want to retrieve the maximum values efficiently, so negating the values achieves this.
+2. Use the heapq.heapify() function to convert the list into a heap.
+3. While there are at least two stones in the heap:
+   Pop the two heaviest stones (negatives) from the heap.
+   If the second heaviest stone is greater than the heaviest stone:
+   Calculate the difference between the two stones and push it back onto the heap.
+4. Append a zero to the heap if there's only one stone left or none.
+5. Return the absolute value of the single stone remaining in the heap.
+
+# Complexity
+Time complexity: The time complexity of heapifying the list is O(n), and each pop and push operation within the while loop takes O(log n) time. So, the overall time complexity is O(n log n).
+
+Space complexity: The space complexity is O(n) because we are using constant extra space for variables and the heap.
+
+# Code
+```
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+        stones = [-s for s in stones]
+        heapq.heapify(stones)
+        while len(stones) > 1:
+            first = heapq.heappop(stones)
+            second = heapq.heappop(stones)
+            if second > first:
+                heapq.heappush(stones, first - second)
+        stones.append(0)
+        return abs(stones[0])
+```

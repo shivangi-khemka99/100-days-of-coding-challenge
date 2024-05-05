@@ -1,0 +1,44 @@
+"Preorder Traversal Using Stack"
+
+Leetcode solution link: https://leetcode.com/problems/binary-tree-preorder-traversal/solutions/5117342/preorder-traversal-using-stack/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+This problem seems to involve traversing a binary tree in a preorder manner, i.e., visiting nodes in the order root, left, right.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+The provided solution utilizes an iterative approach with a stack. It starts from the root and traverses as follows:
+
+Pushes the right child onto the stack (if exists).
+Appends the current node's value to the result list.
+Moves to the left child of the current node.
+
+This process repeats until all nodes are visited.
+
+# Complexity
+Time complexity: The time complexity depends on the number of nodes in the binary tree. Since each node is visited once, the time complexity is O(n), where n is the number of nodes in the tree.
+
+Space complexity: The space complexity is O(h) in the worst case, where h is the height of the tree. This is because the stack can hold up to h nodes if the tree is skewed.
+
+# Code
+```
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        stack,res = [],[]
+        cur = root
+        while cur or stack:
+            if cur:
+                stack.append(cur.right)
+                res.append(cur.val)
+                cur = cur.left
+            else:
+                cur = stack.pop()
+        return res
+```
