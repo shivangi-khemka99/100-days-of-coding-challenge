@@ -1,0 +1,27 @@
+"Single Number (Using XOR)"
+
+Leetcode solution link: https://leetcode.com/problems/single-number/solutions/5122175/single-number-using-xor/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+Given an array where every element appears twice except for one, we need to find the element that appears only once. Since every number occurs twice except for one, we can utilize the XOR operation, which has the property of canceling out pairs of the same number.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We can iterate through the array and use the XOR operation to combine all the numbers. XORing a number with itself results in 0, so the only number left at the end will be the one that appears only once.
+
+# Complexity
+Time complexity: O(n), where n is the number of elements in the array. We iterate through the array once.
+
+Space complexity: O(1). We use a constant amount of extra space regardless of the size of the input array.
+
+# Code
+```
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        res = 0
+        for num in nums:
+            res ^= num
+        return res
+        
+```

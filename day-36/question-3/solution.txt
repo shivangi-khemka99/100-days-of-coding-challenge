@@ -1,0 +1,29 @@
+"Plus One (Array Increment)"
+
+Leetcode solution link: https://leetcode.com/problems/plus-one/solutions/5122221/plus-one-array-increment/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires us to increment a given number represented as an array of digits by one. If the number ends with a digit 9, then we need to handle the carry and propagate it until we reach a digit that is not 9.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We iterate through the digits array from right to left. If we encounter a digit that is 9, we set it to 0 and continue to the next digit. If the digit is not 9, we increment it by 1 and return the updated array. If we reach the beginning of the array and still haven't returned, it means that all digits were 9, so we prepend 1 to the array.
+
+# Complexity
+Time complexity: O(n), where n is the number of digits in the input array. We iterate through the array once.
+
+Space complexity: O(1) if not considering the space required for the output array. Otherwise, O(n) if we consider the space required for the output array.
+
+# Code
+```
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        for i in range(len(digits)-1, -1, -1):
+            if digits[i] == 9:
+                digits[i] = 0
+            else:
+                digits[i] += 1
+                return digits
+        return [1] + digits 
+```

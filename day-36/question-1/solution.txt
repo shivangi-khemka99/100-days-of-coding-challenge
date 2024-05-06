@@ -1,0 +1,41 @@
+"Roman to Integer Conversion Python"
+
+Leetcode solution link: https://leetcode.com/problems/roman-to-integer/solutions/5122101/roman-to-integer-conversion-python/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires converting a Roman numeral string to an integer. One approach is to create a dictionary mapping Roman numerals to their corresponding integer values and then iterate through the input string, adding up the integer values according to the Roman numeral rules.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Create a dictionary (translations) to map each Roman numeral character to its integer value.
+2. Initialize a variable number to store the final integer result.
+3. Replace any substrings in the input string (s) that represent subtraction cases (e.g., "IV" for 4, "IX" for 9, etc.) with their equivalent additive representation.
+4. Iterate through each character in the modified input string and add its corresponding integer value to number.
+5. Return the final number.
+
+# Complexity
+Time complexity: O(n), where n is the length of the input string s. The replacement operations and the loop to iterate through the string both have linear time complexity.
+
+Space complexity: O(1) since the space used is independent of the input size. The dictionary translations and the variable number occupy constant space regardless of the size of the input string.
+# Code
+```
+class Solution:
+    def romanToInt(self, s: str) -> int:
+        translations = {
+            "I": 1,
+            "V": 5,
+            "X": 10,
+            "L": 50,
+            "C": 100,
+            "D": 500,
+            "M": 1000
+        }
+        number = 0
+        s = s.replace("IV", "IIII").replace("IX", "VIIII")
+        s = s.replace("XL", "XXXX").replace("XC", "LXXXX")
+        s = s.replace("CD", "CCCC").replace("CM", "DCCCC")
+        for char in s:
+            number += translations[char]
+        return number
+```
