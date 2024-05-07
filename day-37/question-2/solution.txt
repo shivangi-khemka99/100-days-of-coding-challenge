@@ -1,0 +1,38 @@
+"Zigzag String Transformation"
+
+Leetcode solution link: https://leetcode.com/problems/zigzag-conversion/solutions/5126717/zigzag-string-transformation/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem seems to involve rearranging characters in a string in a specific pattern based on the number of rows provided.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Iterative Construction: We can iterate through the string and place each character in its appropriate row based on the pattern defined by the number of rows.
+2. Pattern Observation: We observe that characters in each row occur at regular intervals. We compute these intervals based on the row number and the number of rows.
+3. Concatenation: As we iterate through the string, we concatenate characters to form the final result.
+
+# Complexity
+Time complexity:
+We iterate through each character of the input string once, performing constant-time operations for each character.
+Therefore, the time complexity is O(n), where n is the length of the input string.
+
+Space complexity:
+We use a string variable to store the resulting string, which requires O(n) space, where n is the length of the input string.
+Additionally, we use a few constant extra variables.
+Hence, the space complexity is O(n).
+
+# Code
+```
+class Solution:
+    def convert(self, s: str, numRows: int) -> str:
+        if numRows == 1: return s
+        res = ""
+        for r in range(numRows):
+            increament = (numRows - 1) * 2
+            for i in range(r,len(s), increament):
+                res += s[i]
+                if (r > 0 and r < numRows-1 and i + increament - 2*r < len(s)):
+                    res+= s[i + increament - 2*r]
+        return res
+```

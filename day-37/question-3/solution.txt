@@ -1,0 +1,39 @@
+"Maximum Area of a Container using two pointers"
+
+Leetcode solution link: https://leetcode.com/problems/container-with-most-water/solutions/5126947/maximum-area-of-a-container-using-two-pointers/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem appears to be about finding the maximum area that can be formed between vertical lines in a histogram, where the area is determined by the height of the shorter line and the distance between the lines.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Two Pointer Technique: We can utilize the two-pointer technique to explore all possible areas between lines. We initialize two pointers, one at the start and the other at the end of the array.
+2. Calculating Area: At each step, we calculate the area between the lines pointed to by the pointers. The width of the area is determined by the difference in indices, and the height is determined by the minimum height of the two lines.
+3. Updating Maximum Area: We update the maximum area encountered so far and move the pointers accordingly.
+Termination: We continue this process until the pointers meet.
+4. Return Maximum Area: Finally, we return the maximum area found.
+
+# Complexity
+Time complexity:
+The two-pointer technique allows us to traverse the array once, performing constant-time operations at each step.
+Therefore, the time complexity is O(n), where n is the number of elements in the input list.
+
+Space complexity:
+We use only a constant amount of extra space for variables such as pointers and the maximum area.
+Hence, the space complexity is O(1).
+# Code
+```
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        max_area = 0
+        l,r = 0,len(height)-1
+        while l<r:
+            if min(height[l],height[r])*(r-l) > max_area:
+                max_area = min(height[l],height[r])*(r-l)
+            if height[l] <= height[r]:
+                l+=1
+            else:
+                r-=1
+        return max_area
+```
