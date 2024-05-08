@@ -1,0 +1,27 @@
+"Checking if Number is Power of Two using math function"
+
+Leetcode solution link: https://leetcode.com/problems/power-of-two/solutions/5131161/checking-if-number-is-power-of-two-using-math-function/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem aims to determine whether a given integer is a power of two. A straightforward way to approach this is to check if the number is divisible by 2 repeatedly until it becomes 1. If it becomes 1, then it's a power of two; otherwise, it's not.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Check if the input number is less than or equal to 0. If so, return False because non-positive integers cannot be powers of two.
+2. Use the logarithm base 2 function to find the logarithm of the number.
+3. Check if the result is an integer. If it is, then the number is a power of two; otherwise, it's not.
+
+# Complexity
+Time complexity: O(1) - The time complexity is constant because both the comparison and the logarithm computation are constant time operations.
+
+Space complexity: O(1) - The space complexity is also constant as no additional space is used.
+
+# Code
+```
+class Solution:
+    def isPowerOfTwo(self, n: int) -> bool:
+        if n<=0:
+            return False
+        return (math.log2(n).is_integer())
+```

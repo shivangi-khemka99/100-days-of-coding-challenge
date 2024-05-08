@@ -1,0 +1,40 @@
+"Heap-Based Ranking Algorithm for Athlete Scores"
+
+Leetcode solution link:
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem asks to assign ranks to athletes based on their scores. One intuitive approach is to use a max heap to efficiently retrieve the athlete with the highest score and assign them the appropriate rank.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Create a max heap of tuples containing the negative score and index of each athlete.
+Pop elements from the max heap one by one. Assign ranks based on the order in which athletes are popped.
+For the first three ranks, assign "Gold Medal", "Silver Medal", and "Bronze Medal" respectively. For the rest, assign their rank as a string.
+
+# Complexity
+Time complexity: O(nlogn) - Building the heap takes O(n) time, and popping each element takes O(logn) time.
+
+Space complexity: O(n) - Extra space is used to store the heap and the result array.
+
+# Code
+```
+import heapq
+class Solution:
+    def findRelativeRanks(self, score: List[int]) -> List[str]:
+        max_heap = [(-s, i) for i, s in enumerate(score)]
+        heapq.heapify(max_heap)
+        result = [""] * len(score)
+        
+        for rank in range(1, len(score) + 1):
+            _, index = heapq.heappop(max_heap)
+            if rank == 1:
+                result[index] = "Gold Medal"
+            elif rank == 2:
+                result[index] = "Silver Medal"
+            elif rank == 3:
+                result[index] = "Bronze Medal"
+            else:
+                result[index] = str(rank)
+        return result
+```
