@@ -1,0 +1,40 @@
+"Binary Addition Algorithm"
+
+Leetcode solution link: https://leetcode.com/problems/add-binary/solutions/5136117/binary-addition-algorithm/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To add two binary strings, we can follow a similar approach to adding two numbers manually. We iterate through the strings from right to left, adding the digits along with any carry from the previous step.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We initialize an empty list to store the result and a variable to keep track of the carry. We then iterate through the strings a and b from their rightmost digits to the leftmost. At each step, we add the corresponding digits from a and b, along with the carry if present. We append the sum modulo 2 to the result list and update the carry by dividing the sum by 2.
+
+After iterating through both strings, if there's any remaining carry, we append it to the result list.
+
+Finally, we join the result list into a string and return it.
+
+# Complexity
+Time complexity: O(max(n, m)), where n and m are the lengths of the input strings a and b, respectively. We iterate through both strings once.
+
+Space complexity: O(max(n, m)) for storing the result list.
+
+# Code
+```
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        result = []
+        carry = 0
+        i, j = len(a) - 1, len(b) - 1
+        while i >= 0 or j >= 0 or carry:
+            total = carry
+            if i >= 0:
+                total += int(a[i])
+                i -= 1
+            if j >= 0:
+                total += int(b[j])
+                j -= 1
+            result.append(str(total % 2))
+            carry = total // 2
+        return ''.join(result[::-1])
+```

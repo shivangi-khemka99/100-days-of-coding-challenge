@@ -1,0 +1,29 @@
+"Power of Three using log method"
+
+Leetcode solution link: https://leetcode.com/problems/power-of-three/solutions/5136151/power-of-three-using-log-method/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To determine if a number is a power of three, we can use logarithms. If a number is a power of three, its logarithm to the base 3 will be an integer.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We first check if the input number is less than or equal to 0. If it is, we return False since negative numbers and 0 cannot be powers of three.
+
+Next, we compute the logarithm of the input number to the base 3 using logarithmic properties. If the result is an integer, we return True, indicating that the number is a power of three. Otherwise, we return False.
+
+# Complexity
+Time complexity: O(1) since computing logarithms is typically constant time.
+
+Space complexity: O(1) as there are no additional data structures used in the algorithm.
+
+# Code
+```
+import math
+class Solution:
+    def isPowerOfThree(self, n: int) -> bool:
+        if n<=0:
+            return False
+        logValue = log10(n) / log10(3)
+        return logValue.is_integer()
+```

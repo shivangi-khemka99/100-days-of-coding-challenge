@@ -1,0 +1,31 @@
+"Maximize Happiness of Selected Children using sorting"
+
+Leetcode solution link: https://leetcode.com/problems/maximize-happiness-of-selected-children/solutions/5136015/maximize-happiness-of-selected-children-using-sorting/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The approach aims to maximize the happiness sum by greedily selecting the children with the highest happiness values. We sort the happiness array in ascending order to ensure we select children with the lowest happiness values first.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We iterate through the sorted happiness array from the end, starting from the child with the highest happiness value. In each iteration, we check if the difference between the current happiness value and the number of turns remaining is positive. If it is positive, we add this difference to the maximum happiness sum. Otherwise, we break the loop since selecting the current child would result in a non-positive happiness value for future selections.
+
+# Complexity
+Time complexity: O(nlogn) - Sorting the happiness array takes where n is the length of the array. The subsequent iteration through the array takes O(n).
+
+Space complexity: O(1) - The algorithm uses only a constant amount of extra space, regardless of the input size.
+
+# Code
+```
+class Solution:
+    def maximumHappinessSum(self, happiness: List[int], k: int) -> int:
+        happiness.sort()
+        max_sum,j = 0,len(happiness)-1
+        for i in range(k):
+            if happiness[j]-i>0:
+                max_sum+=(happiness[j]-i)
+            else:
+                break
+            j-=1
+        return max_sum
+```
