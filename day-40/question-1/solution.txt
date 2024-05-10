@@ -1,0 +1,46 @@
+"Kth Smallest Prime Fraction using Min Heap"
+
+Leetcode solution link: https://leetcode.com/problems/k-th-smallest-prime-fraction/solutions/5140201/kth-smallest-prime-fraction-using-min-heap/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To find the kth smallest prime fraction, we can use a min heap to efficiently keep track of the smallest fractions formed by pairs of elements from the given array. We start by initializing an empty min heap. Then, we iterate through all elements of the array except the last one, forming fractions with the last element. These fractions, along with their numerator and denominator indices, are pushed into the heap.
+
+After that, we pop elements from the heap k - 1 times. Each time we pop an element, we retrieve its fraction, numerator index, and denominator index. If there's a possibility of a smaller fraction by decrementing the denominator index, we calculate the new fraction and push it back into the heap. This ensures that we maintain the k smallest fractions in the heap. Finally, we retrieve the kth smallest fraction's numerator and denominator indices from the top of the heap and return the corresponding elements from the original array.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initialize an empty min heap and calculate the length of the input array.
+2. Push initial fractions formed by each element of the array and the last element into the heap along with their indices.
+3. Pop k - 1 smallest fractions from the heap, each time checking if there's a smaller fraction possible by decrementing the denominator index.
+4. Retrieve the kth smallest fraction's numerator and denominator indices from the top of the heap.
+5. Return the corresponding elements from the original array as the kth smallest fraction.
+
+# Complexity
+Time complexity:
+Building the heap: O(nlogn), where n is the length of the input array.
+Popping k - 1 elements from the heap: O(klogn).
+Overall time complexity: O((k + n)logn)
+
+Space complexity:
+Heap space: O(n)
+Additional space for variables: O(1)
+Overall space complexity: O(n)
+
+# Code
+```
+class Solution:
+    def kthSmallestPrimeFraction(self, arr, k):
+        minHeap,n = [],len(arr)
+        for i in range(n - 1):
+            heapq.heappush(minHeap, (arr[i] / arr[-1], i, n - 1))
+
+        for _ in range(k - 1):
+            _, numeratorIndex, denominatorIndex = heapq.heappop(minHeap)
+            if denominatorIndex - 1 > numeratorIndex:
+                heapq.heappush(
+                    minHeap, (arr[numeratorIndex] / arr[denominatorIndex - 1], numeratorIndex, denominatorIndex - 1))
+
+        _, i, j = heapq.heappop(minHeap)
+        return [arr[i], arr[j]]
+```

@@ -1,0 +1,34 @@
+"Longest Substring with Same Letters after Replacement using sliding window"
+
+Leetcode solution link: https://leetcode.com/problems/longest-repeating-character-replacement/solutions/5140652/longest-substring-with-same-letters-after-replacement-using-sliding-window/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem seems to be related to finding the longest substring with the same characters, with the possibility of changing at most k characters to make all characters in the substring the same. One intuitive approach might involve using a sliding window technique to track the longest valid substring.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We can use a sliding window approach to maintain a window that contains the longest valid substring. We'll keep track of the counts of each character in the current window using a dictionary. We'll also maintain the maximum frequency of any character within the window. If the length of the window minus the maximum frequency exceeds k, we need to shrink the window from the left side until the condition is satisfied.
+
+# Complexity
+Time complexity: O(n) where n is the length of the input string s.
+
+Space complexity: O(1) since the dictionary count will contain at most 26 characters.
+
+# Code
+```
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        l = 0
+        count = {}
+        maxf = 0
+        res = 0
+        for r in range(len(s)):
+            count[s[r]] = 1 + count.get(s[r],0)
+            maxf = max(maxf,count[s[r]])
+            while (r-l+1) - maxf > k:
+                count[s[l]] -=1
+                l+=1
+            res = max(res,r-l+1)
+        return res
+```

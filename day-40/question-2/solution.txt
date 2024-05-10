@@ -1,0 +1,31 @@
+"Longest substring without repeating chars using sliding window"
+
+Leetcode solution link: https://leetcode.com/problems/longest-substring-without-repeating-characters/solutions/5140478/longest-substring-without-repeating-chars-using-sliding-window/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To find the length of the longest substring without repeating characters, we can use a sliding window approach. We'll maintain a set to keep track of the characters in the current substring and adjust the window accordingly to ensure that there are no repeating characters.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+We'll initialize two pointers, l and r, representing the left and right boundaries of the current substring. We'll iterate over the string using the r pointer and expand the window until we encounter a repeating character. Once we detect a repeating character, we'll shrink the window from the left side until the substring becomes valid again (i.e., no repeating characters). We'll keep track of the maximum length of the valid substrings encountered.
+
+# Complexity
+Time complexity: O(n), where n is the length of the input string s. We iterate through the string once.
+
+Space complexity: O(min(n,m)), where m is the size of the character set (26 for lowercase English letters). The space used by the set can be at most the size of the character set.
+
+# Code
+```
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        char_set = set()
+        l,res = 0,0
+        for r in range(len(s)):
+            while s[r] in char_set:
+                char_set.remove(s[l])
+                l+=1
+            char_set.add(s[r])
+            res = max(res,r-l+1)
+        return res
+```
