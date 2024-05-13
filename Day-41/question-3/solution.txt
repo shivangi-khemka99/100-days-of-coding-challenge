@@ -1,0 +1,52 @@
+"Optimizing Binary Matrix Score through Row and Column Flipping"
+
+Leetcode solution link: https://leetcode.com/problems/score-after-flipping-matrix/solutions/5153225/optimizing-binary-matrix-score-through-row-and-column-flipping/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The intuition seems to be to maximize the score by flipping rows and columns.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+The approach flips rows if the first element of the row is 0, then flips columns if the number of ones in the column is less than half the number of rows.
+
+# Complexity
+Time complexity:
+
+Flipping rows takes O(rows×cols) time.
+Flipping columns takes O(rows×cols) time.
+Adding bin numbers takes O(rows×cols) time.
+So, overall time complexity is O(rows×cols).
+
+Space complexity:
+Only a constant amount of extra space is used, so the space complexity is O(1).
+
+# Code
+```
+class Solution:
+    def matrixScore(self, grid: List[List[int]]) -> int:
+        rows,cols = len(grid),len(grid[0])
+
+        #Flip the rows first
+        for r in range(rows):
+            if grid[r][0] == 0:
+                for c in range(cols):
+                    grid[r][c] = 0 if grid[r][c] else 1
+        
+        #Flip the cols now
+        for c in range(cols):
+            one_count = 0
+            for r in range(rows):
+                one_count+= grid[r][c]
+            if one_count < rows - one_count:
+                for r in range(rows):
+                    grid[r][c] = 0 if grid[r][c] else 1
+        
+        #Add bin numbers
+        res = 0
+        for r in range(rows):
+            for c in range(cols):
+                res+= grid[r][c] << (cols-c-1)
+    
+        return res
+```

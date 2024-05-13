@@ -1,0 +1,47 @@
+"Optimizing Worker Hiring Costs"
+
+Leetcode solution link: https://leetcode.com/problems/minimum-cost-to-hire-k-workers/solutions/5144173/optimizing-worker-hiring-costs/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem involves hiring K workers while minimizing the total cost. Each worker has a quality and a corresponding wage, and the cost of hiring a worker is proportional to their wage-to-quality ratio.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Create a list of pairs where each pair consists of the wage-to-quality ratio and the quality of the worker.
+2. Sort the list of pairs based on the wage-to-quality ratio.
+3. Use a max heap to keep track of the K workers with the highest quality.
+4. Iterate through the sorted list of pairs, maintaining a running total of the quality of the selected workers. Update the result with the minimum cost when the number of selected workers equals K.
+
+# Complexity
+Time complexity: Sorting the list of pairs takes O(n log n) time, where n is the number of workers. The heap operations inside the loop also take O(log k) time. Overall, the time complexity is O(n log n + n log k).
+
+Space complexity: The space complexity is O(n) for storing the list of pairs and the max heap.
+
+# Code
+```
+class Solution:
+    def mincostToHireWorkers(self, quality: List[int], wage: List[int], k: int) -> float:
+        res = float("inf")
+
+        pairs = [] # (ratio,quality)
+
+        for i in range(len(quality)):
+            pairs.append((wage[i] / quality[i], quality[i]))
+        
+        pairs.sort(key=lambda p:p[0])
+
+        maxHeap = [] #Qualities
+        total_quality = 0
+
+        for ratio , q in pairs:
+            heapq.heappush(maxHeap,-q)
+            total_quality += q
+
+            if len(maxHeap) > k:
+                total_quality += heapq.heappop(maxHeap)
+
+            if len(maxHeap) == k:
+                res = min(res, total_quality*ratio)
+        return res        
+```
