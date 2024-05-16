@@ -1,0 +1,39 @@
+"Binary Tree Evaluation using recursion"
+
+Leetcode solution link: https://leetcode.com/problems/evaluate-boolean-binary-tree/solutions/5166443/binary-tree-evaluation-using-recursion/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem seems to involve evaluating a binary tree based on certain conditions at each node.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+The provided code defines a class Solution with a method evaluateTree that takes the root of a binary tree as input and returns a boolean value. The method recursively evaluates the binary tree based on the following conditions:
+
+If the current node has no left child, it returns the value of the current node.
+If the value of the current node is 2, it returns the logical OR of the evaluations of its left and right subtrees.
+If the value of the current node is 3, it returns the logical AND of the evaluations of its left and right subtrees.
+
+# Complexity
+Time complexity:
+In the worst case, the algorithm traverses each node of the binary tree once, resulting in a time complexity of O(n), where n is the number of nodes in the tree.
+
+Space complexity:
+The space complexity depends on the depth of the recursive call stack, which is proportional to the height of the tree. In the worst case, for a skewed binary tree, the space complexity is O(n), where n is the number of nodes in the tree.
+
+# Code
+```
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def evaluateTree(self, root: Optional[TreeNode]) -> bool:
+        if not root.left: return root.val
+        if root.val == 2:
+            return self.evaluateTree(root.left) or self.evaluateTree(root.right)
+        if root.val == 3:
+            return self.evaluateTree(root.left) and self.evaluateTree(root.right)
+```

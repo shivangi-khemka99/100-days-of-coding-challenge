@@ -1,0 +1,42 @@
+"Maximum Gold Collection in Grid: Depth-First Search (DFS) Approach"
+
+Leetcode solution link: https://leetcode.com/problems/path-with-maximum-gold/solutions/5157512/maximum-gold-collection-in-grid-depth-first-search-dfs-approach/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem seems to involve finding the maximum amount of gold that can be collected starting from any cell in the grid and moving only up, down, left, or right, without visiting the same cell twice. This suggests a depth-first search (DFS) approach to explore all possible paths starting from each cell.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+I'll implement a depth-first search function (dfs) that explores all possible paths starting from a given cell. The function will recursively move to neighboring cells and accumulate the gold collected. I'll keep track of visited cells to avoid revisiting them. Then, I'll iterate through all cells in the grid, initiating a DFS from each cell and updating the maximum gold collected.
+
+# Complexity
+Time complexity: O(m*n*3^k)
+Space complexity: O(m*n) for the visited set and recursive call stack.
+
+# Code
+```
+class Solution:
+    def getMaximumGold(self, grid: List[List[int]]) -> int:
+        rows, cols = len(grid), len(grid[0])
+        def dfs(r,c, visit):
+            if (
+                min(r,c) < 0 or r == rows or c == cols or
+                grid[r][c] == 0 or (r,c) in visit
+            ):
+                return 0
+            visit.add((r,c))
+            res = 0
+
+            neighbours = [[r+1,c], [r-1,c], [r,c+1], [r,c-1]]
+            for r2, c2 in neighbours:
+                res = max(res, grid[r][c] + dfs(r2,c2,visit))
+            visit.remove((r,c))
+            return res
+
+        res = 0
+        for r in range(rows):
+            for c in range(cols):
+                res = max(res, dfs(r,c, set()))
+        return res
+```
