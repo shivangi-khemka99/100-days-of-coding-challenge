@@ -1,0 +1,46 @@
+"Distribute Coins in Binary Tree Using Depth-First Search (DFS)"
+
+Leetcode solution link: https://leetcode.com/problems/distribute-coins-in-binary-tree/solutions/5175661/distribute-coins-in-binary-tree-using-depth-first-search-dfs/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To solve this problem, our goal is to redistribute the coins in the tree such that each node ends up with exactly one coin, while minimizing the number of moves. A move consists of transferring a coin from one node to an adjacent node. By performing a depth-first search (DFS), we can compute the excess or deficit of coins at each node and propagate these values up the tree. This way, we can keep track of the total number of moves required.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Perform a DFS traversal of the tree.
+2. For each node, calculate the excess coins by considering:
+The current value of the node minus 1 (since the node needs exactly one coin).
+The excess coins from the left and right subtrees.
+3. Update the result with the absolute value of the excess coins at the current node. This represents the number of moves needed to balance the coins at this node.
+4. Return the total number of moves.
+
+# Complexity
+- Time complexity: O(n)
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: O(h)
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+# Code
+```
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def distributeCoins(self, root: Optional[TreeNode]) -> int:
+        self.res = 0
+        def dfs(cur):
+            if not cur:
+                return 0
+            lextra = dfs(cur.left)
+            rextra = dfs(cur.right)
+            extra_coins = (cur.val-1) + lextra + rextra
+            self.res += abs(extra_coins)
+            return extra_coins
+        dfs(root)
+        return self.res
+```

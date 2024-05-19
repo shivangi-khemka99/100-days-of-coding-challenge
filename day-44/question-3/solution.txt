@@ -1,0 +1,43 @@
+"Easy solution with O(NLOGN)"
+
+Leetcode solution link: https://leetcode.com/problems/find-the-maximum-sum-of-node-values/solutions/5180175/easy-solution-with-o-nlogn/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem is about optimizing the sum of a graph's nodes after performing an XOR operation on exactly k nodes. We need to carefully choose which nodes to apply the XOR operation to maximize the overall sum.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Calculate Delta Values:
+
+For each node, compute the difference between the value of the node after XOR operation and its original value. This can be represented as delta[i] = (nums[i] ^ k) - nums[i].
+Sort these delta values in descending order to prioritize nodes that provide the maximum increase in value when XOR is applied.
+
+Greedily Select Nodes:
+
+Initialize the result as the sum of the original node values.
+Iterate through the sorted delta values and add the top k delta values to the result. These represent the k most beneficial nodes to apply the XOR operation.
+
+# Complexity
+Time Complexity:
+
+Calculating the delta values for each node takes O(n).
+Sorting the delta values takes O(nlogn).
+Therefore, the total time complexity is O(nlogn).
+
+Space Complexity: O(n) to store the delta values.
+
+# Code
+```
+class Solution:
+    def maximumValueSum(self, nums: List[int], k: int, edges: List[List[int]]) -> int:
+        delta = [(n^k) - n for n in nums]
+        delta.sort(reverse=True)
+        res = sum(nums)
+
+        for i in range(0,len(nums),2):
+            if i!=len(nums)-1:
+                if delta[i] + delta[i+1] > 0 :
+                    res+= delta[i] + delta[i+1] 
+        return res
+```

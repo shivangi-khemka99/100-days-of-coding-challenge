@@ -1,0 +1,41 @@
+"Recursive Post-Order Traversal to Remove Target Leaf Nodes in a Binary Tree"
+
+Leetcode solution link: https://leetcode.com/problems/delete-leaves-with-a-given-value/solutions/5169183/recursive-post-order-traversal-to-remove-target-leaf-nodes-in-a-binary-tree/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+When dealing with binary trees and the requirement to remove specific nodes, a common and effective method is to use recursion. The primary goal is to check each node to see if it is a leaf node and if its value matches the target. If it does, we remove it. This recursive approach naturally fits the tree structure.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Base Case: If the current node is None, return None. This handles the edge case where we reach the end of a branch.
+
+Recursive Case: Traverse the tree using post-order traversal (i.e., visit left and right children before the node itself). This is important because we need to process the children before deciding whether to remove the current node.
+
+Leaf Node Check: After processing the children, check if the current node is a leaf node (both left and right children are None). If it is a leaf node and its value equals the target, return None to effectively remove it from the tree.
+
+Return Current Node: If the node is not a leaf node with the target value, return the node itself, possibly with its updated children.
+
+# Complexity
+Time Complexity: O(n), where n is the number of nodes in the tree. Each node is visited once.
+
+Space Complexity: O(h), where h is the height of the tree. This accounts for the recursive call stack. In the worst case (a skewed tree), the height h could be n, but for a balanced tree, h would be logn.
+
+# Code
+```
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def removeLeafNodes(self, root: Optional[TreeNode], target: int) -> Optional[TreeNode]:
+        if not root:
+            return 
+        root.left = self.removeLeafNodes(root.left, target)
+        root.right = self.removeLeafNodes(root.right, target)
+        if root.val == target and not root.left and not root.right:
+            return
+        return root
+```
