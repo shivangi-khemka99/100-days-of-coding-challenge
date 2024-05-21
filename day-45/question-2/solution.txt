@@ -1,0 +1,46 @@
+"Backtracking Approach to Generate All Subsets of a List"
+
+Leetcode solution link: https://leetcode.com/problems/subsets/solutions/5188168/backtracking-approach-to-generate-all-subsets-of-a-list/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+
+To generate all subsets of a given list, we can use a backtracking approach. The idea is to explore each element in the list, deciding whether to include it in the current subset or not, and recursively generate all possible subsets.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+
+Initialization: Start with an empty subset and an empty list to store all subsets.
+
+Recursive Helper Function: Define a recursive function that:
+Adds the current subset to the result when it reaches the end of the list.
+Recursively explores two possibilities for each element: including it in the current subset or not including it.
+
+Backtracking: After including an element and making a recursive call, remove the element (backtrack) to explore the next possibility.
+
+# Complexity
+- Time complexity: O(n * (2^n))
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: O(n)
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+# Code
+```
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        subset = []
+        def helper(i):
+            if i >= len(nums):
+                res.append(subset.copy())
+                return 
+            #Include nums[i]
+            subset.append(nums[i])
+            helper(i+1)
+            #Don't include nums[i]
+            subset.pop()
+            helper(i+1)
+        helper(0)
+        return res
+```

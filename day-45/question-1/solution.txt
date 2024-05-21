@@ -1,0 +1,44 @@
+"Efficient XOR Sum of All Subsets Solution"
+
+Leetcode solution link: https://leetcode.com/problems/sum-of-all-subset-xor-totals/solutions/5184883/efficient-xor-sum-of-all-subsets-solution/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The XOR of all subsets of an array can be efficiently computed using properties of the XOR operation. One key observation is that the contribution of each bit in the final result is determined by how many times it appears in the XOR of the subsets. This can be simplified using a bitwise OR operation and some combinatorial mathematics.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Understanding the Contribution of Each Bit:
+
+Each bit in the binary representation of numbers in nums contributes independently to the final result.
+For a given bit position, it will contribute to half of the subsets because it will be included in all subsets that include the element where that bit is set.
+Bitwise OR Operation:
+
+If we OR all the elements together, we get a number where each bit is set if it appears in at least one number in nums.
+This combined number, when multiplied appropriately, gives us the total XOR sum of all subsets.
+Combining the Contributions:
+
+Each bit contributes to half of the possible subsets. If the length of nums is n, then each bit's contribution should be counted 2^(n-1) times because each element is either included or not in each subset.
+
+Given these insights, we can sum up the total contribution using a bitwise OR and multiply by 2^(n-1)
+
+# Complexity
+Time Complexity: O(n) We only need to traverse the list once to compute the OR of all elements.
+
+Space Complexity: O(1) We use a constant amount of space for the result and the OR operation.
+
+# Code
+```
+class Solution:
+    def subsetXORSum(self, nums: List[int]) -> int:
+        # def helper(i, total):
+        #     if i == len(nums):
+        #         return total
+        #     #Include nums[i] and not include nums[i]
+        #     return helper(i+1, total ^ nums[i]) + helper(i+1, total)
+        # return helper(0,0)
+        res = 0
+        for i in nums:
+            res = res | i
+        return res * pow(2, len(nums)-1) # res << len(nums)-1
+```

@@ -1,0 +1,47 @@
+"Generating Unique Subsets with Duplicates using backtracking"
+
+Leetcode solution link: https://leetcode.com/problems/subsets-ii/solutions/5188238/generating-unique-subsets-with-duplicates-using-backtracking/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To find all subsets of a list of integers that may include duplicates, we need to handle the duplicates properly to ensure that only unique subsets are included in the result. By sorting the list initially, we can easily skip duplicates during the subset generation process.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Sort the List: Sorting the list helps us easily identify and skip duplicates.
+
+Backtracking with Helper Function: Use a helper function to generate subsets by deciding whether to include or exclude each element.
+
+Handling Duplicates: If we decide not to include a particular element, we skip all subsequent elements that are the same as the current one to avoid generating duplicate subsets.
+
+Adding Subsets: When we reach the end of the list, we add the current subset to the result. We use subset.copy() to avoid issues with mutable lists.
+
+# Complexity
+- Time complexity: O(2^N)
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: O(N*(2^N))
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+# Code
+```
+class Solution:
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        nums.sort()
+        subset = []
+        def helper(i):
+            if i >= len(nums):
+                res.append(subset.copy())
+                return 
+            #Include nums[i]
+            subset.append(nums[i])
+            helper(i+1)
+            #Don't include nums[i]
+            subset.pop()
+            while i+1<len(nums) and nums[i]==nums[i+1]:
+                i+=1
+            helper(i+1)
+        helper(0)
+        return res
+```
