@@ -1,0 +1,41 @@
+"Subset Beauty Count using backtracking"
+
+Leetcode solution link: https://leetcode.com/problems/the-number-of-beautiful-subsets/solutions/5198362/subset-beauty-count-using-backtracking/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem seems to involve generating subsets of the given list nums and counting the number of beautiful subsets. A subset is considered beautiful if for every pair of distinct elements a and b in the subset, either a + k or a - k exists in the subset.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+To solve this problem, a recursive backtracking approach is used. The helper function is recursively called to generate subsets of nums. In each recursive call, the function decides whether to include or exclude the current element in the subset. If an element is included, it checks whether adding or subtracting k from the element creates a beautiful subset.
+
+# Complexity
+Time complexity: O(2 ^ N), where N is the length of the input list nums. In the worst case, all subsets need to be generated.
+
+Space complexity: O(N), where N is the length of the input list nums. The space complexity is determined by the call stack of the recursive function.
+
+# Code
+```
+class Solution:
+
+    def beautifulSubsets(self, nums: List[int], k: int) -> int:
+        def helper(i, part):
+            nonlocal res
+            if i >= len(nums):
+                res += 1
+                return
+            # Include nums[i]
+            if not (nums[i] + k in part or nums[i] - k in part):
+                part[nums[i]] = part.get(nums[i], 0) + 1
+                helper(i + 1, part)
+                part[nums[i]] -= 1
+                if part[nums[i]] == 0:
+                    del part[nums[i]]
+            # Exclude nums[i]
+            helper(i + 1, part)
+
+        res = 0
+        helper(0, {})
+        return res-1
+```
