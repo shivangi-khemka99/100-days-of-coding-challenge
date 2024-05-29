@@ -1,0 +1,37 @@
+"Binary Reduction Steps Counter with complexity O(N)"
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To reduce a binary number to 1, we can leverage the fact that dividing by 2 corresponds to right-shifting the binary number, and adding 1 to an odd number makes it even. By continuously performing these operations based on whether the current number is odd or even, we can efficiently reduce the number to 1.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Convert the binary string to its integer equivalent.
+2. Use a loop to repeatedly modify the number:
+    If the number is even, divide it by 2 (right-shift the binary representation).
+    If the number is odd, add 1 to make it even.
+3. Count each operation as a step.
+4. Continue the process until the number is reduced to 1.
+5. Return the total number of steps.
+
+# Complexity
+- Time complexity: O(N)
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity:O(1)
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+# Code
+```
+class Solution:
+    def numSteps(self, s: str) -> int:
+        steps = 0
+        int_value = int(s, 2)
+        while int_value != 1:
+            if int_value % 2 == 0:
+                int_value //=2
+            else:
+                int_value+=1
+            steps+=1
+        return steps 
+```

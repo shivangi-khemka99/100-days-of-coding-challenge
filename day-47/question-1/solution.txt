@@ -1,0 +1,43 @@
+"Special Array with X Elements Greater Than or Equal X with nlogn"
+
+Leetcode solution link: https://leetcode.com/problems/special-array-with-x-elements-greater-than-or-equal-x/solutions/5217315/special-array-with-x-elements-greater-than-or-equal-x-with-nlogn/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To solve the problem of finding the special value x such that there are exactly x numbers in the array that are greater than or equal to x, we can follow a systematic approach. 
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Sort the Array: Start by sorting the array. Sorting helps in easily counting how many elements are greater than or equal to any given number by looking at the tail end of the array.
+
+Iterate through the Array: Iterate through the sorted array and at each step, determine how many elements are greater than or equal to the current element.
+
+Count Elements: For each element in the sorted array at index i, the count of elements greater than or equal to the current element is len(nums) - i.
+
+Check Special Condition: Check if the count equals the value of i. If it does, that is our special value. If it never does, return -1.
+
+# Complexity
+- Time complexity: O(nlogn)
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: O(1)
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+# Code
+```
+class Solution:
+    def specialArray(self, nums: List[int]) -> int:
+        nums.sort()
+        i = 0
+        prev = -1
+        total_right = len(nums)
+
+        while i<len(nums):
+            if nums[i]==total_right or (prev < total_right <nums[i]):
+                return total_right
+            while i+1 < len(nums) and nums[i] == nums[i+1]:
+                i+=1
+            prev = nums[i]
+            i+=1
+            total_right = len(nums)-i
+        return -1
+```
