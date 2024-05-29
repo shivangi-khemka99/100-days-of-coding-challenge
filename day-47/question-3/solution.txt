@@ -1,5 +1,7 @@
 "Binary Reduction Steps Counter with complexity O(N)"
 
+Leetcode solution link: https://leetcode.com/problems/number-of-steps-to-reduce-a-number-in-binary-representation-to-one/solutions/5227261/binary-reduction-steps-counter-with-complexity-o-n/
+
 # Intuition
 <!-- Describe your first thoughts on how to solve this problem. -->
 To reduce a binary number to 1, we can leverage the fact that dividing by 2 corresponds to right-shifting the binary number, and adding 1 to an odd number makes it even. By continuously performing these operations based on whether the current number is odd or even, we can efficiently reduce the number to 1.
