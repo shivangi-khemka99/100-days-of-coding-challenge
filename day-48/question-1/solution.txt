@@ -1,0 +1,35 @@
+"Counting Triplets with XOR Zero with time complexity O(N^2)"
+
+Leetcode solution link: https://leetcode.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/solutions/5232425/counting-triplets-with-xor-zero-with-time-complexity-o-n-2/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem is to find the number of triplets (i, j, k) such that the XOR of the elements from index i to j-1 is equal to the XOR of the elements from index j to k. This can be simplified using the property of XOR which states that if A^B=0, then A=B.
+# Approach
+<!-- Describe your approach to solving the problem. -->
+To find the triplets, we need to look at the segments of the array and find where the XOR from one segment is equal to zero. Specifically, we want to find indices (i, j, k) such that:
+arr[i]^arr[i+1]^...^arr[j−1]=arr[j]^arr[j+1]^...^arr[k]
+
+From the XOR property, this can be reduced to finding segments where the cumulative XOR up to a certain point is the same.
+
+# Complexity
+- Time complexity: O(N^2)
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: O(1)
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+# Code
+```
+class Solution:
+    def countTriplets(self, arr: List[int]) -> int:
+        n = len(arr)
+        res = 0
+        for i in range(n):
+            cur_xor = arr[i]
+            for k in range(i+1, n):
+                cur_xor ^= arr[k]
+                if cur_xor == 0:
+                    res+= k-i 
+        return res
+```

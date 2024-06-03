@@ -1,0 +1,40 @@
+"Finding Two Unique Numbers in an Array Where All Other Numbers Appear Twice using xor property"
+
+Leetcode solution link: https://leetcode.com/problems/single-number-iii/solutions/5240986/finding-two-unique-numbers-in-an-array-where-all-other-numbers-appear-twice-using-xor-property/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem asks us to find two unique numbers in an array where every other number appears exactly twice. Using the XOR operation is a natural approach because it has the property that x^x=0 and x^0=x. This allows us to effectively "cancel out" pairs of numbers that appear twice.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Initial XOR: XOR all the numbers in the array. The result will be the XOR of the two unique numbers, say a and b, because all the other numbers will cancel out.
+
+Find a Set Bit: Find a bit that is set in the result from step 1. This can be done by isolating the rightmost set bit. This set bit will help us differentiate between a and b, as this bit will be different in a and b.
+Partition and XOR: Partition the numbers in the array into two groups based on the set bit found in step 2. XOR the numbers in each group separately. Each group will result in one of the unique numbers, as the numbers that appear twice will cancel out.
+
+# Complexity
+- Time complexity: O(N)
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: O(1)
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+# Code
+```
+class Solution:
+    def singleNumber(self, nums: List[int]) -> List[int]:
+        xor = 0
+        for num in nums:
+            xor ^= num
+        diff_bit = 1
+        while not (xor & diff_bit):
+            diff_bit = diff_bit << 1
+        a,b = 0,0
+        for num in nums:
+            if diff_bit & num:
+                a ^= num
+            else:
+                b ^= num
+        return [a,b]
+```
