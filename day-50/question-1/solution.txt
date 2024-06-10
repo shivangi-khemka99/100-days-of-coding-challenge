@@ -1,0 +1,56 @@
+"Efficient Card Grouping Using Counting and Min-Heap"
+
+Leetcode solution link: https://leetcode.com/problems/hand-of-straights/solutions/5270618/efficient-card-grouping-using-counting-and-min-heap/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires checking if a hand of cards can be rearranged into groups of consecutive numbers of a given size. My first thought is to utilize a counting approach to track the number of occurrences of each card and use a heap to efficiently manage the smallest card values.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Initial Check: If the number of cards in the hand is not divisible by the group size, return False.
+2. Counting Elements: Use a Counter to count the occurrences of each card.
+Min-Heap Initialization: Create a min-heap from the unique keys (card values) in the Counter.
+3. Main Loop: Continuously extract the smallest card value from the heap.
+
+    Inner Loop: Attempt to create a group starting from the smallest card.
+
+    Validation and Update: Ensure there are enough consecutive cards to form the required group size and decrement the counts accordingly.
+
+    Heap Management: Adjust the heap to remove cards with zero count or manage discrepancies.
+
+# Complexity
+- Time complexity: O(NlogK)
+Creating the Counter takes O(N).
+Building the heap takes O(KlogK), where K is the number of unique cards.
+Processing each card takes O(NlogK) due to heap operations.
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: O(N)
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+# Code
+```
+class Solution:
+    def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
+        if len(hand) % groupSize != 0:
+            return False
+        
+        count = Counter(hand)
+        
+        minH = list(count.keys())
+        heapq.heapify(minH)
+
+        while minH:
+            first = minH[0]
+            for i in range(first,first+groupSize):
+                if i not in count:
+                    return False
+                count[i]-=1
+                if count[i]==0:
+                    if i != minH[0]:
+                        return False
+                    else:
+                        heapq.heappop(minH)
+        return True
+```

@@ -1,0 +1,40 @@
+"Finding Subarrays with Sum Divisible by K Using Prefix Sums and Remainder Tracking"
+
+Leetcode solution link: https://leetcode.com/problems/subarray-sums-divisible-by-k/solutions/5290270/finding-subarrays-with-sum-divisible-by-k-using-prefix-sums-and-remainder-tracking/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To solve the problem of finding the number of subarrays whose sum is divisible by k, we can leverage the properties of prefix sums and remainders. The idea is to keep track of the cumulative sums and their remainders when divided by k. If at any two points the cumulative sums have the same remainder when divided by k, the subarray between these two points has a sum that is divisible by k.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Prefix Sum Calculation: Maintain a running sum (sum_so_far) as you iterate through the array. This will represent the cumulative sum up to the current index.
+2. Remainder Calculation: For each element, compute the remainder of the running sum when divided by k (rem = sum_so_far % k). This helps in identifying subarrays with sums divisible by k.
+3. Handling Negative Remainders: Adjust the remainder to always be non-negative (rem = (rem + k) % k).
+4. Tracking Remainders: Use a dictionary (prefix_sum) to count occurrences of each remainder. Initialize it with {0: 1} to account for subarrays starting from the beginning.
+5. Count Valid Subarrays: For each element, increment the count by the number of times the current remainder has been seen before (since this indicates a valid subarray).
+6. Update Dictionary: After counting, update the dictionary with the current remainder.
+
+# Complexity
+- Time complexity: O(N)
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+where n is the number of elements in the input array. We iterate through the array once, performing constant time operations for each element.
+
+- Space complexity: O(N)
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+where k is the size of the dictionary used to store remainders. In the worst case, we may store up to k different remainders.
+# Code
+```
+class Solution:
+    def subarraysDivByK(self, nums: List[int], k: int) -> int:
+        count = 0
+        sum_so_far = 0
+        prefix_sum = defaultdict(int) 
+        prefix_sum[0] = 1
+        for num in nums:
+            sum_so_far += num
+            rem = sum_so_far % k 
+            count += prefix_sum[rem]
+            prefix_sum[sum_so_far%k] += 1
+        return count
+```

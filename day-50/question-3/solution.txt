@@ -1,0 +1,44 @@
+"Efficient Height Checker using Bucket/Counting Sort"
+
+
+Leetcode solution link: https://leetcode.com/problems/height-checker/solutions/5290112/fficient-height-checker-using-bucket-counting-sort/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To determine how many students are not standing in the positions they would be if they were sorted by height, we can compare the given order of heights with the sorted version of these heights. Each position where the height in the original list differs from the height in the sorted list corresponds to a student who is not in the correct position.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+1. Count Occurrences with a Bucket Sort: First, we create a bucket to count the occurrences of each height. This allows us to construct the sorted version of the heights list efficiently.
+2. Reconstruct the Sorted List: Using the bucket, we construct the sorted list of heights.
+3. Compare Lists: Compare each element in the original list with the corresponding element in the sorted list. Count the positions where the elements differ.
+4. Return the Count: The result is the count of positions where the elements in the original list differ from the sorted list.
+
+# Complexity
+- Time complexity:
+O(n+k), where n is the number of students and k is the range of possible heights. This is because we go through the heights list once to build the bucket (O(n)), then iterate through the bucket (which has a fixed length related to the range of heights, say k), and finally compare the original list with the sorted list.
+
+- Space complexity:
+O(n+k), where n is the space for the sorted list and k is the space for the bucket array.
+
+# Code
+```
+class Solution:
+    def heightChecker(self, heights: List[int]) -> int:
+        bucket = [0]*100
+
+        for i in heights:
+            bucket[i-1] +=1
+        
+        expected = []
+
+        for j in range(len(bucket)):
+            for _ in range(bucket[j]):
+                expected.append(j+1)
+
+        res = 0
+        for i in range(len(heights)):
+            if heights[i] != expected[i]:
+                res+=1
+        return res        
+```
