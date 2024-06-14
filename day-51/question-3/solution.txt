@@ -1,0 +1,43 @@
+"Minimum Increments to Make Array Elements Unique Using Counter"
+
+Leetcode solution link: https://leetcode.com/problems/minimum-increment-to-make-array-unique/solutions/5312046/minimum-increments-to-make-array-elements-unique-using-counter/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The key idea is to count the frequency of each number in the array and ensure that every duplicate number is incremented until it becomes unique. By using a counting strategy and sequentially resolving conflicts, we can efficiently achieve the desired result.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Count Frequencies: Use a counter to track the frequency of each number in the array.
+Resolve Duplicates: Iterate over possible values starting from the smallest element. If a value appears more than once, increment it until all duplicates are resolved.
+Accumulate Increments: Track the number of increments required to make the array unique.
+
+# Complexity
+- Time complexity: O(N+M)
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: O(N+M)
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+# Code
+```
+class Solution:
+    def minIncrementForUnique(self, nums: List[int]) -> int:
+        # nums.sort()
+        # res = 0
+        # for i in range(1, len(nums)):
+        #     if nums[i-1]>=nums[i]:
+        #         res+= nums[i-1]-nums[i]+1
+        #         nums[i] += nums[i-1]-nums[i] + 1
+        # return res
+
+        count = Counter(nums)
+        res = 0
+
+        for i in range(len(nums)+max(nums)):
+            if count[i] > 1:
+                extra = count[i] - 1
+                count[i+1] += extra 
+                res += extra
+        return res
+```

@@ -1,0 +1,32 @@
+"Minimize Moves to Seat Students using sorting"
+
+Leetcode solution link: https://leetcode.com/problems/minimum-number-of-moves-to-seat-everyone/solutions/5306666/minimize-moves-to-seat-students-using-sorting/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To minimize the total number of moves, we need to match each student to the closest possible seat. This can be achieved by sorting both the seats and students lists and then pairing them in a one-to-one manner. By doing this, each student is matched with the seat that results in the least possible movement.
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Sort both lists: Start by sorting the seats and students lists. Sorting ensures that we are pairing each student with the closest available seat.
+Calculate the total moves: Iterate through the sorted lists, and for each pair of corresponding elements (i.e., seats[i] and students[i]), calculate the absolute difference and accumulate the total moves required.
+
+# Complexity
+- Time complexity: O(NlogN)
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: O(1)
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+# Code
+```
+class Solution:
+    def minMovesToSeat(self, seats: List[int], students: List[int]) -> int:
+        seats.sort()
+        students.sort()
+
+        res = 0
+
+        for i in range(len(seats)):
+            res+= abs(seats[i]-students[i])
+        return res
+```

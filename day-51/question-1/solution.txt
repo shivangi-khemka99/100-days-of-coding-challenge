@@ -1,0 +1,38 @@
+"Efficient Relative Sorting of Arrays"
+
+Leetcode solution link: https://leetcode.com/problems/relative-sort-array/solutions/5296645/efficient-relative-sorting-of-arrays/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires sorting an array (arr1) based on the order of elements in another array (arr2). Elements in arr1 that are not in arr2 should be appended at the end in sorted order.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Use a Counter to count occurrences of each element in arr1.
+Iterate through arr2, adding the elements to the result in the order specified by arr2, and removing them from the counter.
+Sort the remaining elements (those not in arr2) and append them to the result.
+
+# Complexity
+- Time complexity: O(nlogn)
+Counting elements is O(n)
+Iterating through arr2 is O(m)
+Sorting remaining elements is O(klogk)
+Total: O(nlogn) where n is the length of arr1.
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: O(n)
+The Counter and the result list both take O(n) space.
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+# Code
+```
+class Solution:
+    def relativeSortArray(self, arr1: List[int], arr2: List[int]) -> List[int]:
+        count = Counter(arr1)
+        result = []
+        for val in arr2:
+            result.extend([val] * count.pop(val, 0))
+        remaining = sorted(count.elements())
+        result.extend(remaining)
+        return result
+```
