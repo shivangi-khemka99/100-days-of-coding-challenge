@@ -1,0 +1,51 @@
+"Sum of Squares Using Two-pointer Technique"
+
+Leetcode solution link: https://leetcode.com/problems/sum-of-square-numbers/solutions/5328057/sum-of-squares-using-two-pointer-technique/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+The problem requires us to determine if a given integer c can be expressed as the sum of two squares. This means finding integers a and b such that a^2 + b^2 = c.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Two-pointer Technique: Utilize the two-pointer technique to find if such a pair (a, b) exists:
+Initialize two pointers: left at 0 and right at the integer square root of c (since a and b cannot be larger than the square root of c).
+Calculate the sum of squares of the values at the two pointers.
+If the sum equals c, return True.
+If the sum is greater than c, move the right pointer to the left to decrease the sum.
+If the sum is less than c, move the left pointer to the right to increase the sum.
+Continue this process until the left pointer exceeds the right pointer.
+
+# Complexity
+- Time complexity: O(C^(1/2))
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: O(1)
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+# Code
+```
+class Solution:
+    def judgeSquareSum(self, c: int) -> bool:
+        # square_root = set()
+        # for i in range(int(sqrt(c))+1):
+        #     square_root.add(i*i)
+        # a = 0
+        # while a*a <= c:
+        #     target = c - a*a
+        #     if target in square_root:
+        #         return True
+        #     a +=1
+        # return False
+
+        left,right = 0, int(sqrt(c))
+        while left<=right:
+            total = left*left + right*right
+            if total == c:
+                return True
+            elif total > c:
+                right-=1
+            else:
+                left+=1
+        return False
+```

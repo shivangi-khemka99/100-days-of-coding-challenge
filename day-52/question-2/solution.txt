@@ -1,0 +1,46 @@
+"Maximize Satisfied Customers using Sliding Window Technique"
+
+Leetcode solution link: https://leetcode.com/problems/grumpy-bookstore-owner/solutions/5347565/maximize-satisfied-customers-using-sliding-window-technique/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+We want to maximize the total number of satisfied customers. Normally, customers are satisfied when the shopkeeper is not grumpy. However, the shopkeeper can control their grumpiness for a certain number of minutes, which can convert some unsatisfied customers into satisfied ones.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Sliding Window Technique:
+
+We need to find the maximum number of customers that can be made satisfied within any window of minutes length when the shopkeeper is using their power to control their grumpiness.
+We'll iterate through the list of customers and maintain a sliding window of size minutes to calculate the potential increase in satisfaction if the shopkeeper controls their grumpiness during that window.
+Implementation Steps:
+
+Calculate the number of satisfied customers without using the grumpy control (when the shopkeeper is not grumpy).
+Use a sliding window to calculate the maximum number of additional customers that can be satisfied within any window of minutes length.
+Sum the always satisfied customers and the maximum additional customers to get the result.
+
+# Complexity
+- Time complexity: O(N)
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: O(1)
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+# Code
+```
+class Solution:
+    def maxSatisfied(self, customers: List[int], grumpy: List[int], minutes: int) -> int:
+        l = 0
+        window, max_window = 0,0
+        satisfied = 0
+        for r in range(len(customers)):
+            if grumpy[r]:
+                window += customers[r]
+            else:
+                satisfied += customers[r]
+            if r-l+1 > minutes:
+                if grumpy[l]:
+                    window -= customers[l]
+                l+=1
+            max_window = max(max_window, window)
+        return satisfied + max_window
+```

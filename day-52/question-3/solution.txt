@@ -1,0 +1,32 @@
+"hecking for Three Consecutive Odd Numbers in a List EASY SOLUTION"
+
+
+Leetcode solution link: https://leetcode.com/problems/three-consecutive-odds/solutions/5397445/hecking-for-three-consecutive-odd-numbers-in-a-list-easy-solution/
+
+# Intuition
+<!-- Describe your first thoughts on how to solve this problem. -->
+To determine if there are three consecutive odd numbers in a given list, we can iterate through the list and check each sequence of three consecutive numbers. If all three numbers in any such sequence are odd, we return True. If we reach the end of the list without finding such a sequence, we return False.
+
+# Approach
+<!-- Describe your approach to solving the problem. -->
+Iterate through the list starting from the second element and ending at the second-to-last element. This way, we can check the current element and its previous and next elements.
+For each element, check if the current element and its adjacent elements are all odd numbers.
+If we find such a triplet, return True.
+If no such triplet is found by the end of the list, return False.
+
+# Complexity
+- Time complexity: O(N)
+<!-- Add your time complexity here, e.g. $$O(n)$$ -->
+
+- Space complexity: O(1)
+<!-- Add your space complexity here, e.g. $$O(n)$$ -->
+
+# Code
+```
+class Solution:
+    def threeConsecutiveOdds(self, arr: List[int]) -> bool:
+        for i in range(1,len(arr)-1):
+            if arr[i] % 2 != 0 and arr[i-1] % 2 !=0 and arr[i+1] % 2 !=0 :
+                return True
+        return False
+```
